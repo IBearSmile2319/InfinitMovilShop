@@ -122,8 +122,9 @@ html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}main{display:b
     * GENERAL VARIABLES *
 ========================== */
 body{
-    --bg-primary:var(--grey-100);
-    --bg-secondary:#fff;
+    --bg-primary:#fff;
+    --bg-secondary:var(--white-color);
+    --dropdown:var(--grey-100);
     --border-color: #eff3f5;
     --text-color-primary:var(--grey-600);
     --text-color-secondary:var(--grey-700);
@@ -132,6 +133,7 @@ body{
 body.dark-theme{
     --bg-primary: var(--dt-darker);
     --bg-secondary:var(--dt-background);
+    --dropdown:var(--dt-darkest);
     --border-color: var(--dt-background);
     --text-color-primary:var(--grey-400);
     --text-color-secondary:var(--grey-500);
@@ -169,7 +171,6 @@ body{
 
 h1,h2,h3,h4,h5,h6{margin-top: 0;margin-bottom: 0.5rem;font-weight: 600;}
 
-p{margin-top: 0;margin-bottom: 1rem;}
 img{vertical-align: top;}
 li{list-style: none;}
 ol,ul,dl {margin: 0;padding: 0;}
@@ -375,7 +376,7 @@ h6, .h6 {font-size: 1rem;}
     font-size: 16px;
     height: 2rem;
     outline: none;
-    padding: 0px 20px;
+    padding: 0 20px;
     width: 100%;
     background: var(--bg-secondary);
 }
@@ -401,21 +402,78 @@ h6, .h6 {font-size: 1rem;}
 /* NAVBAR LEFT */
 .nav__left--links a{
     text-decoration: none;
-    margin: 0 0.1rem;
-    padding: 1.2rem 0.4rem;
+    margin: 0 0 0 0.6rem;
     align-items: center;
+    display: flex;
+    position: relative;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--text-color-primary);
     transition: all 0.4s ease;
+}
+.nav__left--links a p span{
+    display: block;
+    font-size: 15px;
+    letter-spacing: 2px;
 }
 .nav__left--links a .ion-icon{
     margin: 0 0 0 0.4rem;
     position: relative;
-    height: 1.4rem;
+    top: 6px;
+    height: 1rem;
     fill: var(--text-color-primary);;
     transition: all 0.2s ease;
 }
-.nav__left--links a:hover{color: var(--text-color-secondary);}
-.nav__left--links a:hover .ion-icon{transform: rotateZ(-180deg);fill: var(--text-color-secondary);}
+.nav__left--links>li>a:hover,.nav__left--links>li:hover>a{color: var(--text-color-secondary);}
+.nav__left--links>li:hover .ion-icon{transform: rotateZ(-180deg);fill: var(--text-color-secondary);}
+/* NAVBAR LEFT DROPDOWN */
+
+.nav__left--links .nav__left--dropdown{
+    position: absolute;
+    width: 18rem;
+    display: none;
+    border: 1px solid var(--border-color);
+    border-radius: 5px 5px 5px 0px;
+    height: 236px;
+}
+.nav__left--links .nav__left--dropdown>li>a{
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    display: block;
+    margin: 0;
+    background: var(--bg-secondary);
+    padding: 1rem;
+}
+.nav__left--links .nav__left--dropdown li>a:hover{
+    background: var(--dropdown);
+}
+.nav__left--links>li:hover>.nav__left--dropdown{
+    display: block;
+}
+.nav__left--links .nav__left--dropdown .nav__left--dropdown-links{
+    position: absolute;
+    background: var(--dropdown);
+    border: 1px solid var(--border-color);
+    display: none;
+    margin: 0;
+    padding: 0;
+    top: -1px;
+    left: 286px;
+    height: 100%;
+    grid-template-columns: repeat(3,1fr);
+}
+.nav__left--links .nav__left--dropdown>li:hover>.nav__left--dropdown-links{
+    display: grid;
+    gap:2px;
+}
+.nav__left--links .nav__left--dropdown>li:hover>.nav__left--dropdown-links>li>a{
+    background: var(--bg-secondary);
+    padding: 1.2rem;
+    width: 150px;
+    margin: 1px;
+    text-align: center;
+    align-items: center;
+}
 
 /* NAVBAR CENTER */
 
@@ -427,6 +485,7 @@ h6, .h6 {font-size: 1rem;}
     padding: 0.7rem 0.2rem;
     align-items: center;
     border-radius: 5px;
+    font-size: 15px;
     color: var(--text-color-primary);
     transition: all 0.4s ease;
 }

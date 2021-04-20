@@ -40,10 +40,23 @@ const Navbar = () => {
           </Link>
           <ul className="nav__left--links d-flex item-center">
             <li>
-              <Link to="/">Productos<CaretDownOutlineIcon className="ion-icon"/></Link>
+              <Link to="/">
+                <p>Mostrar todas<span >las categorias</span></p>
+                <CaretDownOutlineIcon className="ion-icon"/>
+              </Link>
+              <ul className="nav__left--dropdown">
+                {categorias.map((name)=>(
+                  <li>
+                  <Link to={`/${name.name}`}>{name.name}</Link>
+                  <ul className="nav__left--dropdown-links">
+                    {[...name.subcategorias].map(cate=>(
+                      <li><Link to={`/${cate}`}>{cate}</Link></li>
+                    ))}
+                  </ul>
+                </li>
+                ))}
+              </ul>
             </li>
-            <li><Link to="/">Servicios</Link></li>
-            {/* <li><Link to="/">Nosotros</Link></li> */}
           </ul>
         </div>
         <div className=" nav__center item-center d-flex">
@@ -69,4 +82,26 @@ const Navbar = () => {
   )
 }
 
+const categorias=[
+  {
+    name:"Accesorios para celulares",
+    subcategorias:["Celulares","Cargadores","Micas de vidrio","Carcasas","audifonos","Cable de datos"]
+  },
+  {
+    name:"Accesorios para pc",
+    subcategorias:["Celulares","Cargadores","Micas de vidrio","Carcasas","audifonos","Cable de datos"]
+  },
+  {
+    name:"Accesorios para pc",
+    subcategorias:["Celulares","Cargadores","Micas de vidrio","Carcasas",]
+  },
+  {
+    name:"Accesorios para pc",
+    subcategorias:["Celulares","Cargadores","Micas de vidrio","Carcasas","audifonos","Cable de datos","audifonos","Cable de datos","audifonos","Cable de datos"]
+  },
+  {
+    name:"Accesorios para pc",
+    subcategorias:["Celulares","Cargadores","Micas de vidrio","Carcasas","audifonos","Cable de datos"]
+  }
+]
 export default Navbar
