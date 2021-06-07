@@ -12,16 +12,22 @@ require('./config/dbmongo')
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 app.use(morgan("dev"))
-
+app.use('/public',express.static(path.join(__dirname,'uploads')))
 // public paths for images and other extra components
 // ....
 // load all routes
 const usersRoutes = require('./routes/usersRoutes')
+const categoryRoutes=require('./routes/categoryRoutes')
+const productRoutes=require('./routes/productRoutes')
+const cartRoutes=require('./routes/cartRoutes')
 // Use to routes
 app.use(cors({
     origin:process.env.CLIENT_URL
 }))
-app.use('/api',usersRoutes);
+app.use('/api',usersRoutes)
+app.use('/api',categoryRoutes)
+app.use('/api',productRoutes)
+app.use('/api',cartRoutes)
 
 
 // configuration for deploy

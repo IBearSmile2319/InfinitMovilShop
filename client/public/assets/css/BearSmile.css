@@ -369,7 +369,42 @@ a:hover{
     .peq-col-span-11{grid-column: span 11;}
     .peq-col-span-12{grid-column: span 12;}
 }
-
+.role-developer{
+    display: block;
+    border: 1px solid var(--primary);
+    font-style: oblique;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-size: 11px;
+    width: fit-content;
+    padding: 0 5px;
+    margin: 3px 0;
+    color: var(--primary);
+}
+.role-user{
+    display: block;
+    border: 1px solid var(--green-500);
+    font-style: oblique;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-size: 11px;
+    width: fit-content;
+    padding: 0 5px;
+    margin: 3px 0;
+    color: var(--green-500);
+}
+.role-admin{
+    display: block;
+    border: 1px solid var(--red-600);
+    font-style: oblique;
+    border-radius: 0.5rem;
+    text-align: center;
+    font-size: 11px;
+    width: fit-content;
+    padding: 0 5px;
+    margin: 3px 0;
+    color: var(--red-600);
+}
 /* ===================
     * COMPONENTS *
 ==================== */
@@ -381,6 +416,15 @@ a:hover{
     border-color: var(--dt-background);
     box-shadow: none;
     border: 1px solid var(--border-color);
+}
+.admin-card-template{
+    padding: 20px;
+    background: var(--bg-secondary);
+    border-color: var(--dt-background);
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+    overflow:auto;
+    width: 100%;
 }
 .header{
     width: 100%;
@@ -604,7 +648,66 @@ a:hover{
 .btn.login{padding: 0.5rem 1rem; text-decoration: none;}
 .btn.login:hover{background: var(--grey-600);color: var(--white-color);}
 .btn.register{background: var(--primary);color: var(--white-color);padding: 0.5rem 1.2rem;text-decoration: none;}
-
+/*  */
+.dropdown-user{
+    position: relative;
+}
+.nav__menu-user{
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    margin: 0 10px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+}
+.nav__menu-user img{
+ width: 100%;
+ border-radius: 50%;
+}
+.menu-user-details{
+    display: flex;
+    margin:5px 0;
+    align-items: center;
+    width: 100%;
+}
+.img-profile a{
+    width: 3rem;
+    height: 3rem;
+    margin: 0 10px;
+    display: flex;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+}
+.img-profile a:hover{
+    border: 1px solid var(--primary);
+}
+.img-profile a img{
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.btn-signup{
+    display: flex;
+    border: 1px solid var(--primary);
+    padding: 5px;
+    width: fit-content;
+    border-radius: 0.5rem;
+    font-size: 12px;
+    text-align: center;
+    align-items: center;
+    cursor: pointer;
+}
+.btn-signup:hover{
+    background: var(--primary);
+    color: var(--white-color);
+}
+.btn-signup .ion-icon{
+    width: 1rem;
+    margin-right: 4px;
+    top: -2px;
+}
 /*  */
 .nav__menu-menu{
     position: absolute;
@@ -612,12 +715,20 @@ a:hover{
     margin: 0;
     padding: 0;
     right: 0;
-    top: 57px;
-    background: var(--bg-secondary);
+    top: 40px;
+    background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
-    height: 100%;
+    height: 400px;
     z-index: 1000;
     width: 300px;
+    box-shadow: 0 0 10px var(--border-color);
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+@media only screen and (max-width:992px){
+    .nav__menu-menu{
+        height: 96vh;
+    }
 }
 .btn.login-menu{padding: 0.5rem 1rem;text-decoration: none;}
 .btn.login-menu:hover{background: var(--grey-600);color: var(--white-color);}
@@ -645,6 +756,7 @@ a:hover{
     display: block;
 }
 
+
 /* ====================================
             * RESPONSIVE *
 ==================================== */
@@ -652,10 +764,7 @@ a:hover{
 @media only screen and (max-width:992px){
     .nav__left--links{display: none;}
     .nav__menu,.nav__search{display: block;}
-    .login,.register{display: none;}
-    
-    
-    
+    .login,.register{display: none;}  
 }
 
 /* ====================================
@@ -1083,4 +1192,149 @@ mark{
 }
 .productInfo-img-carouse ul li img{
     width: 60px;
+}
+
+
+
+
+/* ====================================
+        * ADMIN PAGE *
+==================================== */
+
+.admin{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+}
+.sidebar{
+    position: relative;
+    height: 100vh;
+    width: 240px;
+    overflow: hidden;
+    border:1px solid var(--border-color);
+    background: var(--bg-secondary);
+    transition: all 0.4s ease;
+}
+.sidebar.active{
+    width: 60px;
+}
+.sidebar .logo-details{
+    height: 3.5rem;
+    width: 100%;
+    border:1px solid var(--border-color);
+    border-right: none;
+    border-top: none;
+}
+.sidebar .logo-details .Logo{
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar .nav-links{
+    margin-top: 16px;
+
+}
+.sidebar .nav-links li{
+    height: 50px;
+    width: 100%;
+    list-style: none;
+}
+.sidebar .nav-links li a{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-color-secondary);
+    transition: all 0.4s ease;
+}
+.sidebar .nav-links li a:hover{
+    background: var(--bg-primary);
+    color: var(--primary);
+}
+.sidebar .nav-links li a i{
+    min-width: 60px;
+    text-align: center;
+    
+    font-size: 18px;
+}
+/* Admin section navbar */
+.admin-section{
+    position: relative;
+    background: var(--bg-primary);
+    height: 100vh;
+    width: 100%;
+    overflow: auto;
+}
+.admin-section nav>ul{
+    display: flex;
+    align-items: center;
+}
+.admin-section ul li:first-child{
+    margin-right: 10px;
+}
+.admin-section nav{
+    border: 1px solid var(--border-color);
+    border-left: none;
+    background: var(--bg-secondary);
+    height: 3.55rem;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.admin-section .sidebar-button{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+}
+.admin-section .sidebar-button i{
+    font-size: 25px;
+    margin-right: 9px;
+    cursor: pointer;
+}
+.admin-section nav .admin-profile-details{
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+}
+.admin-profile-details img{
+    height: 40px;
+    width: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.admin-profile-details .admin-name{
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-color-secondary);
+    margin: 0 10px;
+    white-space: nowrap;
+}
+.admin-profile-details i{
+    font-size: 25px;
+}
+
+
+@media only screen and (max-width:768px){
+    
+    .sidebar{
+        width: 60px;
+    }
+    .sidebar.active{
+        width: 240px;
+    }
+    .admin-profile-details .admin-name{
+        display: none;
+    }
+    .admin-profile-details i{
+        display: none;
+    }
 }

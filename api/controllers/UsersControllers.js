@@ -1,13 +1,9 @@
-const { validationResult } = require("express-validator")
 const jwt = require("jsonwebtoken")
 const nodemailer = require('nodemailer')
 const Users = require("../models/usersModel")
 
-
 exports.signUpController = async (req, res, next) => {
     const { firstName, lastName, username, email, password } = req.body
-    const errors = validationResult(req)
-    if (!errors.isEmpty) { return res.status(422).json({ errors: errors.array().map(e => e.msg)[0] }) }
     const isEmailExist = await Users.findOne({ email })
     const isUserNameExist = await Users.findOne({ username })
     if (isEmailExist) return res.status(400).json({ errors: "E-mail Ya registrado!" })
@@ -97,7 +93,7 @@ exports.activateController = async (req, res, next) => {
     }
 }
 exports.signInController =async (req, res, next) => {
-    const {email,connect,password}=req.body
+    const {email,password}=req.body
     try {
         const UserAndEmail=email.includes("@")
 
@@ -106,7 +102,7 @@ exports.signInController =async (req, res, next) => {
                 if (error) return res.status(400).json({ errors:error })
                 if (user) {
                     if (user.authenticate(password)) {
-                        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+                        const token = jwt.sign({ _id: user._id,role:user.role}, process.env.JWT_SECRET, {
                             expiresIn: "24h"
                         })
                         const { firstName, lastName, email,username,role, fullName } = user;
@@ -114,11 +110,12 @@ exports.signInController =async (req, res, next) => {
                             user: {
                                 firstName, lastName,username,email, role, fullName
                             },
-                            token
+                            token,
+                            message: `Bienvenido ${fullName}`
                         })
                     } else {
                         return res.status(400).json({
-                            message: 'Contraseña incorrecta!'
+                            errors: 'Contraseña incorrecta!'
                         })
                     }
                 } else {
@@ -128,4 +125,8 @@ exports.signInController =async (req, res, next) => {
     } catch (e) {
         console.log("Si ves esto comunicanos!")
     }
+}
+// --------------------------
+exports.profileController=(req,res,next)=>{
+   res.status(200).json({user:'profile'})
 }

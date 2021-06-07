@@ -11,7 +11,7 @@ content-type: application/json
     "lastName":"orosco vasquez",
     "username":"ibearsmile",
     "email":"maicol@gmail.com",
-    "password":"12345"
+    "password":"1234567"
 }
 ###
 
@@ -29,6 +29,37 @@ content-type: application/json
 
 {
     "email":"ibearsmile",
-    "password":"12345",
-    "connect":true
+    "password":"1234567"
 }
+
+###
+
+POST http://localhost:5000/api/profile
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGI1OTg0MjY1MDhkMTI2ODA1MDI2ZDgiLCJpYXQiOjE2MjI1MTM3ODMsImV4cCI6MTYyMjYwMDE4M30.bEMYndRVfCURS3lx6L-i7SX4GwWP6NWMaG0DhVm4px4
+
+### Category
+
+POST http://localhost:5000/api/category/create
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGI1OTg0MjY1MDhkMTI2ODA1MDI2ZDgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MjI1MTQ3MTYsImV4cCI6MTYyMjYwMTExNn0.ZU41GqqZe1R-5qKlYSZQF8ukDtLwKb4R5EpkNoOKrn0
+
+{
+    "name":"micas de vidrio",
+    "parentId":"60b5924f10637c4ca8ad4c20"
+}
+### Category
+
+GET http://localhost:5000/api/category/getcategory
+
+
+### Product
+POST http://localhost:5000/api/product/create
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGI1OTg0MjY1MDhkMTI2ODA1MDI2ZDgiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MjI1MTQ3MTYsImV4cCI6MTYyMjYwMTExNn0.ZU41GqqZe1R-5qKlYSZQF8ukDtLwKb4R5EpkNoOKrn0
+
+{
+    name:"hola"
+}
+
+

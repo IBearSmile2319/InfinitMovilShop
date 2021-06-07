@@ -6,6 +6,10 @@ import { ReactComponent as SunnyIcon } from '../../assets/img/ion-icons/sunny.sv
 import { ReactComponent as MoonIcon } from '../../assets/img/ion-icons//moon.svg'
 import { ReactComponent as CartIcon } from '../../assets/img/ion-icons/cart.svg'
 import { ReactComponent as MenuIcon } from '../../assets/img/ion-icons/menu.svg'
+import { ReactComponent as ExitIcon } from '../../assets/img/ion-icons/exit-outline.svg'
+
+import { useSelector } from 'react-redux'
+import UserMenu from './components/UserMenu'
 const Navbar = () => {
   const theme_dark = () => {
     const themecheck = document.getElementById('nav_switch');
@@ -71,13 +75,8 @@ const Navbar = () => {
               <span><MoonIcon className="ion-icon" /></span>
             </div>
           </li>
-          {/* <li><Link to="/" className="nav__search"><ion-icon name="search"></ion-icon></Link></li> */}
           <li><Link to="/" className="relative nav__cart d-block"><CartIcon className="ion-icon" /><span>1</span></Link></li>
-          <li>
-            <NavbarMenu />
-          </li>
-          <li><Link to="/signin" className="btn login">Inicia session</Link></li>
-          <li><Link to="/signup" className="btn register">Comenzar</Link></li>
+          <NavbarMenu />
         </ul>
       </div>
     </nav>
@@ -85,37 +84,12 @@ const Navbar = () => {
 }
 
 const NavbarMenu = () => {
-  const openMenu = () => {
-    document.body.classList.toggle("overflow")
-    document.getElementById("myDropdown").classList.toggle('active')
-  }
-  useEffect(() => {
-    window.onclick = (e) => {
-      if (!e.target.matches('.ion-icon')) {
-        if (!e.target.matches('.nav__menu')) {
-          var dropdowns = document.getElementsByClassName("nav__menu-menu")
-          for (var i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i]
-            if (openDropdown.classList.contains("active")) {
-              openDropdown.classList.remove("active")
-              document.body.classList.remove("overflow")
-            }
-          }
-        }
-      }
-    }
-  }, [])
-  return (
-    <div className="dropdown">
-      <div onClick={openMenu} className="nav__menu"><MenuIcon className="ion-icon" /></div>
+  const auth = useSelector(state => state.auth)
 
-      <ul className="nav__menu-menu" id="myDropdown">
-        <li>
-          <div className="menu_sessions">
-            <Link to="/signin" className="btn login-menu">Inicia session</Link>
-            <Link to="/signup" className="btn register-menu">Comenzar</Link>
-          </div>
-        </li>
+  // links
+  const Links = () => {
+    return (
+      <>
         {
           [...categorias].map(c =>
             <li>
@@ -123,10 +97,115 @@ const NavbarMenu = () => {
             </li>
           )
         }
-      </ul>
-    </div>
+      </>
+    )
+
+  }
+
+  const DropdownDefault = () => {
+    const openMenu = () => {
+      document.body.classList.toggle("overflow")
+      document.getElementById("myDropdown").classList.toggle('active')
+    }
+    useEffect(() => {
+      window.onclick = (e) => {
+        if (!e.target.matches('.ion-icon')) {
+          if (!e.target.matches('.nav__menu')) {
+            var dropdowns = document.getElementsByClassName("nav__menu-menu")
+            for (var i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i]
+              if (openDropdown.classList.contains("active")) {
+                openDropdown.classList.remove("active")
+                document.body.classList.remove("overflow")
+              }
+            }
+          }
+        }
+      }
+    }, [])
+    return (
+      <>
+        <li>
+          <div className="dropdown">
+            <div onClick={openMenu} className="nav__menu">
+              <MenuIcon className="ion-icon" />
+            </div>
+            <ul className="nav__menu-menu" id="myDropdown">
+              <li>
+                <div className="menu_sessions">
+                  <Link to="/signin" className="btn login-menu">Inicia session</Link>
+                  <Link to="/signup" className="btn register-menu">Comenzar</Link>
+                </div>
+              </li>
+              <Links />
+            </ul>
+          </div>
+        </li>
+        <li><Link to="/signin" className="btn login">Inicia session</Link></li>
+        <li><Link to="/signup" className="btn register">Comenzar</Link></li>
+      </>
+    )
+  }
+  const DropdownUser = () => {
+    const openMenu = () => {
+      document.body.classList.toggle("overflow")
+      document.getElementById("myDropdown").classList.toggle('active')
+    }
+    useEffect(() => {
+      window.onclick = (e) => {
+        if (!e.target.matches('.ion-icon')) {
+          if (!e.target.matches('.nav-menu-user-img')) {
+            var dropdowns = document.getElementsByClassName("nav__menu-menu")
+            for (var i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i]
+              if (openDropdown.classList.contains("active")) {
+                openDropdown.classList.remove("active")
+                document.body.classList.remove("overflow")
+              }
+            }
+          }
+        }
+      }
+    }, [])
+    return (
+      <li>
+        <div className="dropdown-user">
+          <div className="nav__menu-user">
+            <img onClick={openMenu} className="nav-menu-user-img" src="https://scontent.flim10-1.fna.fbcdn.net/v/t1.6435-9/65055474_847463008955321_7430851561670049792_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeFz_efqNX2sSJkiC43FCv75tIw6rWDXvQO0jDqtYNe9A3jeHRAJbsTeTGbIVvYOxXqnYPRFZde36zGD596_-7t7&_nc_ohc=AFkLvHDXi-wAX_lY1Pz&_nc_ht=scontent.flim10-1.fna&oh=7bb62ea2e8647aa06fc6a83120dd9bcb&oe=60E15BEF" alt="" />
+          </div>
+          <ul className="nav__menu-menu" id="myDropdown">
+            <li>
+              <UserMenu
+                name="Orosco Vasquez, Maicol Manuel"
+                role="Developer"
+              />
+            </li>
+            <Links />
+          </ul>
+        </div>
+      </li>
+    )
+  }
+
+
+
+
+  return (
+    <>
+      {auth.authenticate ?
+        <DropdownUser />
+        :
+        <DropdownDefault />
+      }
+
+    </>
   )
 }
+
+
+// links
+
+
 const categorias = [
   {
     name: "Accesorios para celulares",

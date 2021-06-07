@@ -1,15 +1,25 @@
+// components
 import Card from "../components/Card"
 import MainContent from "../components/layout/content/MainContent"
 import Header from "../components/layout/Header/Header"
 import Sessions from "../components/navbar/Sessions"
-import { Link } from "react-router-dom"
+import Separator from "../components/Separator"
+import Footer from '../components/Footer/Footer'
+// icons
 import { ReactComponent as EyeOutline } from '../assets/img/ion-icons/eye-outline.svg'
 import { ReactComponent as EyeOffOutline } from '../assets/img/ion-icons/eye-off-outline.svg'
 import { ReactComponent as KeyOutline } from '../assets/img/ion-icons/key-outline.svg'
+// functions
 import { useState } from "react"
-import Separator from "../components/Separator"
+import { Link, Redirect } from "react-router-dom"
+import { useSelector } from "react-redux"
+
 const Signup = () => {
     const [visible, setVisible] = useState("password")
+    const auth=useSelector(state=>state.auth)
+    if(auth.authenticate){
+        return <Redirect to="/"/>
+    }
     return (
         <>
             <Header>
@@ -82,6 +92,7 @@ const Signup = () => {
                     </div>
                 </Card>
             </MainContent>
+            <Footer />
         </>
     )
 }

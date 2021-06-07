@@ -1,15 +1,43 @@
+import { useState } from "react"
+// components
 import Card from "../components/Card"
 import MainContent from "../components/layout/content/MainContent"
 import Header from "../components/layout/Header/Header"
 import Sessions from "../components/navbar/Sessions"
-import { Link } from "react-router-dom"
+import Separator from "../components/Separator"
+import Footer from '../components/Footer/Footer'
+// icons
+import { Link, Redirect } from "react-router-dom"
 import { ReactComponent as EyeOutline } from '../assets/img/ion-icons/eye-outline.svg'
 import { ReactComponent as EyeOffOutline } from '../assets/img/ion-icons/eye-off-outline.svg'
 import { ReactComponent as KeyOutline } from '../assets/img/ion-icons/key-outline.svg'
-import { useState } from "react"
-import Separator from "../components/Separator"
+
+// functions
+import {login} from '../actions'
+import {useDispatch, useSelector} from 'react-redux'
 const Signin = () => {
     const [visible, setVisible] = useState("password")
+    const [email,setEmail]=useState('')
+    const [password,setPassword]=useState('')
+    const auth=useSelector(state=>state.auth)
+
+    const dispatch = useDispatch()
+    
+    
+
+    const userLogin=(e)=>{
+        e.preventDefault()
+        const user={
+            email,
+            password
+        }
+        dispatch(login(user))
+    }
+
+    if(auth.authenticate){
+        return <Redirect to="/"/>
+    }
+
     return (
         <>
             <Header>
@@ -23,11 +51,18 @@ const Signin = () => {
                             <span>Identifícate en Infinit Movil Shop o <Link to="/signup">Unete</Link> </span>
                         </h2>
                         <div className="form_input-content">
-                            <input type="text" className="form_field" placeholder="Username/E-mail" />
+                            <input type="text" className="form_field"
+                            placeholder="Username/E-mail" 
+                            value={email}
+                            onChange={(e)=> setEmail(e.target.value)}
+                            />
                             <label htmlFor="name" className="form_label">Username/E-mail</label>
                         </div>
                         <div className="form_input-content">
-                            <input type={visible} className="form_field form-password" placeholder="********" />
+                            <input type={visible} className="form_field form-password" 
+                            placeholder="********" 
+                            onChange={(e)=> setPassword(e.target.value)}
+                            />
                             <span>
                                 {visible === "texto" ?
                                     <EyeOffOutline onClick={() => setVisible("password")} className="ion-icon" />
@@ -37,7 +72,7 @@ const Signin = () => {
                             </span>
                             <label htmlFor="name" className="form_label">Contraseña</label>
                         </div>
-                        <div className="btn form-btn">
+                        <div className="btn form-btn" onClick={userLogin}>
                             <KeyOutline className="ion-icon" />
                             Inicia sesión
                         </div>
@@ -55,6 +90,7 @@ const Signin = () => {
                     </div>
                 </Card>
             </MainContent>
+            <Footer/>
         </>
     )
 }

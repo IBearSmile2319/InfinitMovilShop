@@ -6,6 +6,7 @@ import MainContent from "../components/layout/content/MainContent"
 import Header from "../components/layout/Header/Header"
 import Navbar from "../components/navbar/Navbar"
 import Tittle from "../components/Tittle"
+import Footer from '../components/Footer/Footer'
 const HomePage = () => {
     return (
         <>
@@ -31,6 +32,7 @@ const HomePage = () => {
                     <ProductsSplide />
                 </Card>
             </MainContent>
+            <Footer/>
         </>
     )
 }

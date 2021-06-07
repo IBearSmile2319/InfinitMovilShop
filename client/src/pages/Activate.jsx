@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 import Separator from "../components/Separator";
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import Footer from '../components/Footer/Footer'
 const Activate = ({ match }) => {
   const [formData, setFormData] = useState({
     token: "",
@@ -76,6 +77,7 @@ const Activate = ({ match }) => {
           </div>
         </Card>
       </MainContent>
+<Footer/>
     </>
   )
 }
