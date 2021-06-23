@@ -23,7 +23,7 @@ const Footer = () => {
                         <h2>Redes sociales</h2>
                         <ul>
                             {[...redes].map(i =>
-                                <li key={Math.random() * (2 - 100)}>
+                                <li key={i.id}>
                                     <div>
                                         <a href={i.link} target="_blank">
                                             {i.icon} <span>{i.name}</span>
@@ -38,7 +38,7 @@ const Footer = () => {
                         <h2>Información de contacto</h2>
                         <ul>
                             {[...contact].map(c =>
-                                <li key={Math.random() * (100 - 200)}>
+                                <li key={c.id}>
                                     <div>
                                         <a href={c.link} target="_blank">
                                             {c.icon}
@@ -91,11 +91,13 @@ export default Footer
 
 const redes = [
     {
+        id:12,
         link: "https://www.facebook.com/InfinitMovilShop",
         icon: <FaceIcon className="ion-icon" />,
         name: "Siguenos en facebook"
     },
     {
+        id:21,
         link: "/",
         icon: <TwitterIcon className="ion-icon" />,
         name: "Siguenos en Twitter"
@@ -103,16 +105,19 @@ const redes = [
 ]
 const contact = [
     {
+        id:31,
         link: "https://goo.gl/maps/iQuyRXVKYgNzVw979",
         icon: <HomeIcon className="ion-icon" />,
         name: " Jr. Alfonso de Alvarado N°. 768.Ref(Costado de WINTAC y/o de MARCIMEX)."
     },
     {
+        id:41,
         link: "mailto:infinit.movilshop@gmail.com",
         icon: <MailIcon className="ion-icon" />,
         name: "infinit.movilshop@gmail.com"
     },
     {
+        id:51,
         link: "tel:956722497",
         icon: <CallIcon className="ion-icon" />,
         name: "+51 956 722 497"

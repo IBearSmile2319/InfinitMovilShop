@@ -1,1 +1,5 @@
-export const api='http://localhost:5000/api'
+const url="http://localhost:5000"
+export const api=`${url}/api`
+export const generatePublicUrl=(filename)=>{
+    return `${url}/public/${filename}`
+}

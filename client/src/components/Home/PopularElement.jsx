@@ -22,27 +22,27 @@ export default PopularElement
 
 const imgs = [
     {
-        id: 1,
+        id: 11,
         img: "https://i.ebayimg.com/images/g/7ZAAAOSw2H1eOtS1/s-l200.webp"
     },
     {
-        id: 2,
+        id: 21,
         img: "https://i.ebayimg.com/images/g/7ZAAAOSw2H1eOtS1/s-l200.webp"
     },
     {
-        id: 3,
+        id: 31,
         img: "https://i.ebayimg.com/images/g/7ZAAAOSw2H1eOtS1/s-l200.webp"
     },
     {
-        id: 4,
+        id: 41,
         img: "https://i.ebayimg.com/images/g/7ZAAAOSw2H1eOtS1/s-l200.webp"
     },
     {
-        id: 5,
+        id: 51,
         img: "https://i.ebayimg.com/images/g/7ZAAAOSw2H1eOtS1/s-l200.webp"
     },
     {
-        id: 6,
+        id: 61,
         img: "https://i.ebayimg.com/images/g/7ZAAAOSw2H1eOtS1/s-l200.webp"
     },
 ]

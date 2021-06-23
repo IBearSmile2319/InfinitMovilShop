@@ -1,6 +1,7 @@
 import Logo from '../../assets/img/Logo'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react';
+import AdminLinks from './components/admin/AdminLinks';
 const AdminNavbar = () => {
     const theme_dark = () => {
         const themecheck = document.getElementById('nav_switch');
@@ -21,9 +22,7 @@ const AdminNavbar = () => {
           document.body.classList.remove('dark-theme');
           themecheck.classList.remove('active');
         }
-        if (document.body.classList.contains("overflow")) {
-          document.body.classList.remove("overflow")
-        }
+       
         let sidebar = document.querySelector('.sidebar')
         let sidebarBtn = document.querySelector('.sidebar-button')
         sidebarBtn.onclick = () => {
@@ -41,44 +40,7 @@ const AdminNavbar = () => {
                         <Logo />
                     </Link>
                 </div>
-                <ul className="nav-links">
-                    <li>
-                        <Link to="/admin/dashboard">
-                            <i className="bx bx-grid-alt"></i>
-                            <span>Dashboard</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/categories">
-                            <i className="bx bxs-category-alt"></i>
-                            <span>Categorias</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/dashboard">
-                            <i className="bx bx-box"></i>
-                            <span>Productos</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/dashboard">
-                            <i className="bx bx-list-ul"></i>
-                            <span>Lista de ordenes</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/dashboard">
-                            <i className="bx bx-pie-chart-alt-2"></i>
-                            <span>Analytics</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/users">
-                            <i className="bx bxs-user-account"></i>
-                            <span>Lista de usuarios</span>
-                        </Link>
-                    </li>
-                </ul>
+                <AdminLinks/>
             </div>
 
         </>

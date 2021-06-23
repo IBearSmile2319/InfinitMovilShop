@@ -5,62 +5,46 @@ import Card from "../components/Card"
 import { useEffect, useState } from "react";
 import jwt from 'jsonwebtoken'
 import Separator from "../components/Separator";
-import axios from 'axios'
-import { toast } from 'react-toastify'
 import Footer from '../components/Footer/Footer'
+import { useDispatch, useSelector } from "react-redux";
+import { activate } from "../actions";
+import { Redirect } from "react-router-dom";
+
 const Activate = ({ match }) => {
-  const [formData, setFormData] = useState({
-    token: "",
-    username: "",
-    lastName: "",
-    firstName: ""
-  });
+  const auth = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+
+  const [username, setUsername] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [token, setToken] = useState('')
 
   useEffect(() => {
-    let token = match.params.token;
-    const { username, firstName, lastName } = jwt.decode(token);
+    let token = match.params.token
 
     if (token) {
-      setFormData({ ...formData, token, firstName, lastName, username });
+      try {
+        const { username, firstName, lastName } = jwt.decode(token)
+        setUsername(username)
+        setFirstName(firstName)
+        setLastName(lastName)
+        setToken(token)
+      } catch (error) {
+        
+      }
+
     }
-  }, [match.params]);
-  const { username, firstName, lastName, token } = formData;
+  }, [match.params])
+
 
   const handleSubmit = e => {
-    e.preventDefault();
-    try {
-      axios.post(`${process.env.REACT_APP_API_URL}activate`, {
-        token
-      })
-        .then(res => {
-          setFormData({
-            ...formData,
-          });
-          toast.success(res.data.message, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
-        })
-        .catch(err => {
-          toast.error(err.response.data.errors, {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          })
-        });
-    } catch (e) {
+    e.preventDefault()
+    dispatch(activate(token))
+  }
 
-    }
-  };
+  if (auth.authenticate) {
+    return <Redirect to="/" />
+  }
 
   return (
     <>
@@ -77,7 +61,7 @@ const Activate = ({ match }) => {
           </div>
         </Card>
       </MainContent>
-<Footer/>
+      <Footer />
     </>
   )
 }

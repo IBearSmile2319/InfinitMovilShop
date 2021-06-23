@@ -17,7 +17,7 @@ const UserMenu = ({name,role,img,link}) => {
             <div className="">
                 <p>
                     {name}
-                      <span className="role-developer">{role}</span>
+                      <span className={`role-${role}`}>{role}</span>
                 </p>
                 <div
                 onClick={logout} 

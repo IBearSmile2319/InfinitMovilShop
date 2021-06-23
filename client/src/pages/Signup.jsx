@@ -8,18 +8,48 @@ import Footer from '../components/Footer/Footer'
 // icons
 import { ReactComponent as EyeOutline } from '../assets/img/ion-icons/eye-outline.svg'
 import { ReactComponent as EyeOffOutline } from '../assets/img/ion-icons/eye-off-outline.svg'
-import { ReactComponent as KeyOutline } from '../assets/img/ion-icons/key-outline.svg'
+import { ReactComponent as LockOutline } from '../assets/img/ion-icons/document-lock-outline.svg'
 // functions
 import { useState } from "react"
 import { Link, Redirect } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { register } from "../actions"
 
 const Signup = () => {
     const [visible, setVisible] = useState("password")
     const auth=useSelector(state=>state.auth)
+    const user=useSelector(state=>state.user)
+    const dispatch = useDispatch()
+
+    const [username,setUsername]=useState('')
+    const [firstName,setFirstName]=useState('')
+    const [lastName,setLastName]=useState('')
+    const [email,setEmail]=useState('')
+    const [password,setPassword]=useState('')
+    const [repeatPassword,setRepeatPassword]=useState('')
+
+
+    const userSignup=(e)=>{
+        e.preventDefault();
+        const dataUser={
+            username,
+            firstName,
+            lastName,
+            email,
+            password,
+            repeatPassword
+        }
+        dispatch(register(dataUser))
+    }
+
     if(auth.authenticate){
         return <Redirect to="/"/>
     }
+
+    if(user.loading){
+        return <p>Loading....</p>
+    }
+
     return (
         <>
             <Header>
@@ -33,23 +63,47 @@ const Signup = () => {
                         </h2>
                         <Separator/>
                         <div className="form_input-content">
-                            <input type="text" className="form_field" placeholder="Username" required />
+                            <input type="text" className="form_field" 
+                            placeholder="Username" 
+                            required 
+                            value={username}
+                            onChange={e=>setUsername(e.target.value)}
+                            />
                             <label htmlFor="name" className="form_label">Nombre de pila</label>
                         </div>
                         <div className="form_input-content">
-                            <input type="text" className="form_field" placeholder="Nombres" required />
+                            <input type="text" className="form_field" 
+                            placeholder="Nombres" 
+                            required 
+                            value={firstName}
+                            onChange={e=>setFirstName(e.target.value)}
+                            />
                             <label htmlFor="name" className="form_label">Nombres</label>
                         </div>
                         <div className="form_input-content">
-                            <input type="text" className="form_field" placeholder="Apellidos" required />
+                            <input type="text" className="form_field" 
+                            placeholder="Apellidos" 
+                            required 
+                            value={lastName}
+                            onChange={e=>setLastName(e.target.value)}
+                            />
                             <label htmlFor="name" className="form_label">Apellidos</label>
                         </div>
                         <div className="form_input-content">
-                            <input type="email" className="form_field" placeholder="E-mail" required />
+                            <input type="email" className="form_field" 
+                            placeholder="E-mail" 
+                            required 
+                            value={email}
+                            onChange={e=>setEmail(e.target.value)}
+                            />
                             <label htmlFor="name" className="form_label">E-mail</label>
                         </div>
                         <div className="form_input-content">
-                            <input type={visible} className="form_field form-password" placeholder="********" required />
+                            <input type={visible} className="form_field form-password" 
+                            placeholder="********" 
+                            required 
+                            onChange={e=>setPassword(e.target.value)}
+                            />
                             <span>
                                 {visible === "texto" ?
                                     <EyeOffOutline onClick={() => setVisible("password")} className="ion-icon" />
@@ -60,7 +114,11 @@ const Signup = () => {
                             <label htmlFor="name" className="form_label">Contraseña</label>
                         </div>
                         <div className="form_input-content">
-                            <input type={visible} className="form_field form-password" placeholder="********" required />
+                            <input type={visible} className="form_field form-password" 
+                            placeholder="********" 
+                            required 
+                            onChange={e=>setRepeatPassword(e.target.value)}
+                            />
                             <span>
                                 {visible === "texto" ?
                                     <EyeOffOutline onClick={() => setVisible("password")} className="ion-icon" />
@@ -85,9 +143,11 @@ const Signup = () => {
                                 de tus datos, consulta nuestro <Link to="/privacidad">Aviso de privacidad</Link>.
                             </p>
                         </div>
-                        <div className="btn form-btn">
-                            <KeyOutline className="ion-icon" />
-                            Inicia sesión
+                        <div
+                        onClick={userSignup} 
+                        className="btn form-btn">
+                            <LockOutline className="ion-icon" />
+                            Registrar
                         </div>
                     </div>
                 </Card>

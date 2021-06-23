@@ -2,25 +2,20 @@ const { model, Schema } = require('mongoose')
 const productSchema = new Schema({
     name: {
         type: String,
-        required: true,
         trim: true
     },
     slug: {
         type: String,
-        required: true,
         trim: true
     },
     price: {
         type: Number,
-        required: true
     },
     quantity:{
         type:Number,
-        required:true
     },
     description: {
         type: String,
-        required: true,
         trim: true
     },
     offer: { type: Number },
@@ -33,7 +28,7 @@ const productSchema = new Schema({
             review: String
         }
     ],
-    category: { type: Schema.Types.ObjectId, ref: 'Category' },
+    category: [{type: Schema.Types.ObjectId, ref: 'Category'}],
     createdBy: { type: Schema.Types.ObjectId, ref: 'Users' },
     updateAt: Date,
 

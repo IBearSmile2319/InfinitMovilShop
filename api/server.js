@@ -20,6 +20,11 @@ const usersRoutes = require('./routes/usersRoutes')
 const categoryRoutes=require('./routes/categoryRoutes')
 const productRoutes=require('./routes/productRoutes')
 const cartRoutes=require('./routes/cartRoutes')
+const InitialDataRoutes=require('./routes/initialData');
+const LocalizationRoutes=require('./routes/LocalizationRoutes');
+const pageRoutes=require('./routes/pageRoutes');
+const orderRoutes=require('./routes/orderRoutes');
+const addressRoutes=require('./routes/addressRoutes');
 // Use to routes
 app.use(cors({
     origin:process.env.CLIENT_URL
@@ -28,6 +33,11 @@ app.use('/api',usersRoutes)
 app.use('/api',categoryRoutes)
 app.use('/api',productRoutes)
 app.use('/api',cartRoutes)
+app.use('/api',InitialDataRoutes)
+app.use('/api',LocalizationRoutes)
+app.use('/api',pageRoutes)
+app.use('/api',orderRoutes)
+app.use('/api',addressRoutes)
 
 
 // configuration for deploy

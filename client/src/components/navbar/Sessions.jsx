@@ -9,9 +9,6 @@ const Sessions = ({ identificate }) => {
         } else {
             document.body.classList.remove('dark-theme');
         }
-        if (document.body.classList.contains("overflow")) {
-            document.body.classList.remove("overflow")
-        }
     }
     useEffect(() => {
         theme_dark();

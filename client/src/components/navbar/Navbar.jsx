@@ -1,16 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Logo from '../../assets/img/Logo'
 import { ReactComponent as CaretDownOutlineIcon } from '../../assets/img/ion-icons/caret-down-outline.svg'
 import { ReactComponent as SunnyIcon } from '../../assets/img/ion-icons/sunny.svg'
 import { ReactComponent as MoonIcon } from '../../assets/img/ion-icons//moon.svg'
-import { ReactComponent as CartIcon } from '../../assets/img/ion-icons/cart.svg'
 import { ReactComponent as MenuIcon } from '../../assets/img/ion-icons/menu.svg'
-import { ReactComponent as ExitIcon } from '../../assets/img/ion-icons/exit-outline.svg'
+
+import {
+  ShoppingCartOutlined,
+  // SettingOutlined,
+  // EditOutlined,
+  // EllipsisOutlined 
+} from '@ant-design/icons'
 
 import { useSelector } from 'react-redux'
 import UserMenu from './components/UserMenu'
+import { Badge, Divider, Drawer, Dropdown, Menu } from 'antd'
+import Avatar from 'antd/lib/avatar/avatar'
+
 const Navbar = () => {
+  const auth = useSelector(state => state.auth)
+  const category = useSelector(state => state.category);
   const theme_dark = () => {
     const themecheck = document.getElementById('nav_switch');
     const localthemecon = localStorage.getItem('theme');
@@ -30,13 +40,197 @@ const Navbar = () => {
       document.body.classList.remove('dark-theme');
       themecheck.classList.remove('active');
     }
-    if (document.body.classList.contains("overflow")) {
-      document.body.classList.remove("overflow")
-    }
+
   }
   useEffect(() => {
     theme_dark();
   }, [])
+  const renderCategories = (categories) => {
+    let myCategories = [];
+    for (let category of categories) {
+      myCategories.push(
+        <li key={category._id}>
+          <Link to={`/product/${category.slug}?cid=${category._id}&type=${category.type}`}>{category.name}</Link>
+          {category.children.length > 0 ?
+            <ul className="nav__left--dropdown-links">
+              {renderCategories(category.children)}
+            </ul> : null
+          }
+        </li>
+      )
+    }
+    return myCategories
+  }
+  // const renderCategoriesOne = (categories) => {
+  //   let myCategories = [];
+  //   for (let category of categories) {
+  //     myCategories.push(
+  //       <Menu.Item>
+  //         <Link key={category._id} to={`/product/${category.slug}`}>{category.name}</Link>
+  //       </Menu.Item>
+  //     )
+  //   }
+  //   return myCategories
+  // }
+  const renderCategoriesOneDefault = (categories) => {
+    let myCategories = [];
+    for (let category of categories) {
+      myCategories.push(
+        <li>
+          <Link key={category._id} to={`/product/${category.slug}?cid=${category._id}&type=${category.type}`}>{category.name}</Link>
+        </li>
+      )
+    }
+    return myCategories
+  }
+  const NavbarMenu = () => {
+    const DropdownDefault = () => {
+      const [visible, setVisible] = useState(false);
+      const showDrawer = () => {
+        setVisible(true);
+      };
+
+      const onClose = () => {
+        setVisible(false);
+      };
+      return (
+        <>
+          <li>
+            <div className="dropdown">
+              <div onClick={showDrawer} className="nav__menu">
+                <MenuIcon className="ion-icon" />
+              </div>
+              <Drawer
+                placement="right"
+                closable={false}
+                onClose={onClose}
+                visible={visible}
+              >
+                <ul className="menu-default">
+                  <li>
+                    <div className="menu_sessions">
+                      <Link to="/signin" className="btn login-menu">Inicia session</Link>
+                      <Link to="/signup" className="btn register-menu">Comenzar</Link>
+                    </div>
+                  </li>
+                  <Divider style={{color:'var(--text-color-primary)'}}>Categorias principales</Divider>
+                  {renderCategoriesOneDefault(category.categories)}
+                </ul>
+              </Drawer>
+            </div>
+          </li>
+          <li><Link to="/signin" className="btn login">Inicia session</Link></li>
+          <li><Link to="/signup" className="btn register">Comenzar</Link></li>
+        </>
+      )
+    }
+
+    const DropdownUser = () => {
+      const [visible, setVisible] = useState(false);
+      const showDrawer = () => {
+        setVisible(true);
+      };
+
+      const onClose = () => {
+        setVisible(false);
+      };
+      const menuuser = (
+        <Menu>
+          <Menu.Item>
+            <UserMenu
+              name={auth.user.fullName}
+              role={auth.user.role}
+            />
+          </Menu.Item>
+          {auth.user.role === "admin" ?
+            <Menu.Item>
+              <Link to="/admin">Dashboard</Link>
+            </Menu.Item> : null
+          }
+          <Menu.Item>
+            <Link to="/profile">Mi Perfil</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/pedidos">Mis pedidos</Link>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to="/pedidos">Lista de deseos</Link>
+          </Menu.Item>
+
+        </Menu>
+      )
+      return (
+        <li>
+          <div className="dropdown-menu-user mr-1 ml-2 pointer">
+            <Dropdown overlay={menuuser} placement="bottomRight" arrow>
+              <Avatar
+                style={{ background: "var(--primary)" }}
+                src={auth.user.picture ? auth.user.picture : null}>
+                {auth.user.firstName.split('', 1)[0].toUpperCase()}
+              </Avatar>
+            </Dropdown>
+          </div>
+          <div className="drawer-menu-user mr-1 ml-2 pointer">
+            <div onClick={showDrawer}>
+              <Avatar
+                style={{ background: "var(--primary)" }}
+                src={auth.user.picture ? auth.user.picture : null}>
+                {auth.user.firstName.split('', 1)[0].toUpperCase()}
+              </Avatar>
+            </div>
+          </div>
+          <Drawer
+            placement="right"
+            closable={false}
+            onClose={onClose}
+            visible={visible}
+          >
+            <ul className="menu-default">
+              <li>
+                <UserMenu
+                  name={auth.user.fullName}
+                  role={auth.user.role}
+                />
+              </li>
+
+              {auth.user.role === "admin" ?
+                <li>
+                  <Link to="/admin">Dashboard</Link>
+                </li>
+
+                : null
+              }
+              <li>
+                <Link to="/profile">Mi Perfil</Link>
+              </li>
+              <li>
+                <Link to="/pedidos">Mis pedidos</Link>
+              </li>
+              <li>
+                <Link to="/pedidos">Lista de deseos</Link>
+              </li>
+              <Divider style={{color:'var(--text-color-primary)'}}>Categorias principales</Divider>
+              {renderCategoriesOneDefault(category.categories)}
+            </ul>
+          </Drawer>
+        </li>
+      )
+    }
+
+
+
+
+    return (
+      <>
+        {auth.authenticate ?
+          <DropdownUser />
+          :
+          <DropdownDefault />
+        }
+
+      </>
+    )
+  }
   return (
     <nav className="container wrapper d-flex">
       <div className="item-center d-flex">
@@ -50,16 +244,7 @@ const Navbar = () => {
               <CaretDownOutlineIcon className="ion-icon" />
             </Link>
             <ul className="nav__left--dropdown">
-              {categorias.map((name) => (
-                <li key={Math.random() * (1 - 100)}>
-                  <Link to={`/${name.name}`}>{name.name}</Link>
-                  <ul className="nav__left--dropdown-links">
-                    {[...name.subcategorias].map(cate => (
-                      <li key={Math.random() * (100 - 200)}><Link to={`/${cate}`}>{cate}</Link></li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
+              {category.categories.length > 0 ? renderCategories(category.categories) : null}
             </ul>
           </li>
         </ul>
@@ -75,7 +260,12 @@ const Navbar = () => {
               <span><MoonIcon className="ion-icon" /></span>
             </div>
           </li>
-          <li><Link to="/" className="relative nav__cart d-block"><CartIcon className="ion-icon" /><span>1</span></Link></li>
+          <li>
+            <Link to="/shoppingcart">
+              <Badge count={2} style={{ background: 'var(--secondary)' }}>
+                <ShoppingCartOutlined style={{ fontSize: 27, color: 'var(--text-color-secondary)' }} />
+              </Badge></Link>
+          </li>
           <NavbarMenu />
         </ul>
       </div>
@@ -83,153 +273,6 @@ const Navbar = () => {
   )
 }
 
-const NavbarMenu = () => {
-  const auth = useSelector(state => state.auth)
-
-  // links
-  const Links = () => {
-    return (
-      <>
-        {
-          [...categorias].map(c =>
-            <li>
-              <Link to="/">{c.name}</Link>
-            </li>
-          )
-        }
-      </>
-    )
-
-  }
-
-  const DropdownDefault = () => {
-    const openMenu = () => {
-      document.body.classList.toggle("overflow")
-      document.getElementById("myDropdown").classList.toggle('active')
-    }
-    useEffect(() => {
-      window.onclick = (e) => {
-        if (!e.target.matches('.ion-icon')) {
-          if (!e.target.matches('.nav__menu')) {
-            var dropdowns = document.getElementsByClassName("nav__menu-menu")
-            for (var i = 0; i < dropdowns.length; i++) {
-              var openDropdown = dropdowns[i]
-              if (openDropdown.classList.contains("active")) {
-                openDropdown.classList.remove("active")
-                document.body.classList.remove("overflow")
-              }
-            }
-          }
-        }
-      }
-    }, [])
-    return (
-      <>
-        <li>
-          <div className="dropdown">
-            <div onClick={openMenu} className="nav__menu">
-              <MenuIcon className="ion-icon" />
-            </div>
-            <ul className="nav__menu-menu" id="myDropdown">
-              <li>
-                <div className="menu_sessions">
-                  <Link to="/signin" className="btn login-menu">Inicia session</Link>
-                  <Link to="/signup" className="btn register-menu">Comenzar</Link>
-                </div>
-              </li>
-              <Links />
-            </ul>
-          </div>
-        </li>
-        <li><Link to="/signin" className="btn login">Inicia session</Link></li>
-        <li><Link to="/signup" className="btn register">Comenzar</Link></li>
-      </>
-    )
-  }
-  const DropdownUser = () => {
-    const openMenu = () => {
-      document.body.classList.toggle("overflow")
-      document.getElementById("myDropdown").classList.toggle('active')
-    }
-    useEffect(() => {
-      window.onclick = (e) => {
-        if (!e.target.matches('.ion-icon')) {
-          if (!e.target.matches('.nav-menu-user-img')) {
-            var dropdowns = document.getElementsByClassName("nav__menu-menu")
-            for (var i = 0; i < dropdowns.length; i++) {
-              var openDropdown = dropdowns[i]
-              if (openDropdown.classList.contains("active")) {
-                openDropdown.classList.remove("active")
-                document.body.classList.remove("overflow")
-              }
-            }
-          }
-        }
-      }
-    }, [])
-    return (
-      <li>
-        <div className="dropdown-user">
-          <div className="nav__menu-user">
-            <img onClick={openMenu} className="nav-menu-user-img" src="https://scontent.flim10-1.fna.fbcdn.net/v/t1.6435-9/65055474_847463008955321_7430851561670049792_n.jpg?_nc_cat=102&ccb=1-3&_nc_sid=09cbfe&_nc_eui2=AeFz_efqNX2sSJkiC43FCv75tIw6rWDXvQO0jDqtYNe9A3jeHRAJbsTeTGbIVvYOxXqnYPRFZde36zGD596_-7t7&_nc_ohc=AFkLvHDXi-wAX_lY1Pz&_nc_ht=scontent.flim10-1.fna&oh=7bb62ea2e8647aa06fc6a83120dd9bcb&oe=60E15BEF" alt="" />
-          </div>
-          <ul className="nav__menu-menu" id="myDropdown">
-            <li>
-              <UserMenu
-                name="Orosco Vasquez, Maicol Manuel"
-                role="Developer"
-              />
-            </li>
-            <Links />
-          </ul>
-        </div>
-      </li>
-    )
-  }
 
 
-
-
-  return (
-    <>
-      {auth.authenticate ?
-        <DropdownUser />
-        :
-        <DropdownDefault />
-      }
-
-    </>
-  )
-}
-
-
-// links
-
-
-const categorias = [
-  {
-    name: "Accesorios para celulares",
-    subcategorias: ["Celulares", "Cargadores", "Micas de vidrio", "Carcasas", "audifonos", "Cable de datos"]
-  },
-  {
-    name: "Accesorios para pc",
-    subcategorias: ["Celulares", "Cargadores", "Micas de vidrio", "Carcasas", "audifonos", "Cable de datos"]
-  },
-  {
-    name: "Accesorios para pc",
-    subcategorias: ["Celulares", "Cargadores", "Micas de vidrio", "Carcasas",]
-  },
-  {
-    name: "Accesorios para pc",
-    subcategorias: ["Celulares", "Cargadores", "Micas de vidrio", "Carcasas", "audifonos", "Cable de datos", "audifonos", "Cable de datos", "audifonos", "Cable de datos"]
-  },
-  {
-    name: "Accesorios para pc",
-    subcategorias: ["Celulares", "Cargadores", "Micas de vidrio", "Carcasas", "audifonos", "Cable de datos"]
-  },
-  {
-    name: "Accesorios para pc",
-    subcategorias: ["Celulares", "Cargadores", "Micas de vidrio", "Carcasas", "audifonos", "Cable de datos"]
-  }
-]
 export default Navbar

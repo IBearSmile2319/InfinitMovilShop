@@ -3,9 +3,10 @@ const nodemailer = require('nodemailer')
 const Users = require("../models/usersModel")
 
 exports.signUpController = async (req, res, next) => {
-    const { firstName, lastName, username, email, password } = req.body
+    const { firstName, lastName, username, email, password, repeatPassword } = req.body
     const isEmailExist = await Users.findOne({ email })
     const isUserNameExist = await Users.findOne({ username })
+    if (password !== repeatPassword) return res.status(400).json({ errors: 'La contraseña no coinside!' })
     if (isEmailExist) return res.status(400).json({ errors: "E-mail Ya registrado!" })
     if (isUserNameExist) return res.status(400).json({ errors: "Nombre de usuario ya está en uso!" })
     try {
@@ -33,7 +34,7 @@ exports.signUpController = async (req, res, next) => {
             subject: "Hello",
             html: `
             <h6>Por favor da Click en el Link para activar su cuenta</h6>
-            <p>${process.env.CLIENT_URL}users/active/${token}</p>
+            <p>${process.env.CLIENT_URL}/users/active/${token}</p>
             <br>
             <p>este email contiene informacion sensible</p>
              <p>${process.env.CLIENT_URL}</p>
@@ -92,23 +93,24 @@ exports.activateController = async (req, res, next) => {
         })
     }
 }
-exports.signInController =async (req, res, next) => {
-    const {email,password}=req.body
+exports.signInController = async (req, res, next) => {
+    const { email, password } = req.body
     try {
-        const UserAndEmail=email.includes("@")
+        const UserAndEmail = email.includes("@")
 
-        Users.findOne(UserAndEmail? {email}:{username:email})
+        Users.findOne(UserAndEmail ? { email } : { username: email })
             .exec((error, user) => {
-                if (error) return res.status(400).json({ errors:error })
+                if (error) return res.status(400).json({ errors: error })
                 if (user) {
                     if (user.authenticate(password)) {
-                        const token = jwt.sign({ _id: user._id,role:user.role}, process.env.JWT_SECRET, {
-                            expiresIn: "24h"
+                        const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
+                            expiresIn: "1d"
                         })
-                        const { firstName, lastName, email,username,role, fullName } = user;
+                        const { firstName, lastName, email, username, role, fullName } = user;
+                        res.cookie('token', token, { expiresIn: "1d" })
                         res.status(200).json({
                             user: {
-                                firstName, lastName,username,email, role, fullName
+                                firstName, lastName, username, email, role, fullName
                             },
                             token,
                             message: `Bienvenido ${fullName}`
@@ -119,14 +121,20 @@ exports.signInController =async (req, res, next) => {
                         })
                     }
                 } else {
-                    return res.status(400).json({ errors: `El ${UserAndEmail?"correo":"usuario"} no se encuentra registrado!` })
+                    return res.status(400).json({ errors: `El ${UserAndEmail ? "correo" : "usuario"} no se encuentra registrado!` })
                 }
             })
     } catch (e) {
         console.log("Si ves esto comunicanos!")
     }
 }
+exports.signoutControllers = (req, res) => {
+    res.clearCookie("token");
+    res.status(200).json({
+        message: 'Cerrando sessión...'
+    })
+}
 // --------------------------
-exports.profileController=(req,res,next)=>{
-   res.status(200).json({user:'profile'})
+exports.profileController = (req, res, next) => {
+    res.status(200).json({ user: 'profile' })
 }
