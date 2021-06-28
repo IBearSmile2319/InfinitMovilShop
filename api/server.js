@@ -25,6 +25,7 @@ const LocalizationRoutes=require('./routes/LocalizationRoutes');
 const pageRoutes=require('./routes/pageRoutes');
 const orderRoutes=require('./routes/orderRoutes');
 const addressRoutes=require('./routes/addressRoutes');
+const bannersRoutes=require('./routes/bannersRoutes');
 // Use to routes
 app.use(cors({
     origin:process.env.CLIENT_URL
@@ -38,6 +39,7 @@ app.use('/api',LocalizationRoutes)
 app.use('/api',pageRoutes)
 app.use('/api',orderRoutes)
 app.use('/api',addressRoutes)
+app.use('/api',bannersRoutes)
 
 
 // configuration for deploy

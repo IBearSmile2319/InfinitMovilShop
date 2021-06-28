@@ -7,36 +7,66 @@ import Header from "../components/layout/Header/Header"
 import Navbar from "../components/navbar/Navbar"
 import Tittle from "../components/Tittle"
 import Footer from '../components/Footer/Footer'
-import CardProductos from "../components/CardProductos"
-import SplideSlide from "@splidejs/react-splide/dist/js/components/SplideSlide"
-import { Badge } from "antd"
+import { SplideSlide } from "@splidejs/react-splide"
+import { Link } from "react-router-dom"
+import { useSelector } from "react-redux"
+import { generatePublicUrl } from "../urlConfig"
+import SplideCategoryProduct from "../components/Home/SplideCategoryProduct"
 const HomePage = () => {
+    const banners = useSelector(state => state.banners)
+    const product = useSelector(state => state.product)
+
     return (
         <>
             <Header>
                 <Navbar />
             </Header>
-            <HomeSplide />
+            <HomeSplide >
+                {banners.banners.map((item, key) =>
+                    <SplideSlide key={key}>
+                        <Link to="/">
+                            <img src={generatePublicUrl(item.banners)} className="splide-img" alt={item.id} />
+                        </Link>
+                    </SplideSlide>
+                )
+                }
+            </HomeSplide>
             <MainContent>
                 {/* <Card>
                     <Tittle tittle="Encuentra lo que necesitas" />
                     <PopularElement />
                 </Card> */}
                 <Card>
-                    <Tittle tittle="Accesorios" link="/accesorios" />
+                    <Tittle tittle="Samsung" link="/accesorios" />
 
                     <ProductsSplide>
-                        {[...imgs].map(i =>
-                            <SplideSlide key={i.id}>
-                                <Badge.Ribbon color="orange" text="oferta">
-                                    <CardProductos
-                                        id={i.id}
-                                        title="Televicion de alta gama esto es una prueba de error"
-                                        price={"2000"}
-                                        img={i.img}
-                                    />
-                                </Badge.Ribbon>
-                            </SplideSlide>
+                        {product.products.map((item, key) =>
+                            <>
+                                {product.products[key].category[0].name === "Samsung" ?
+                                    <SplideCategoryProduct
+                                        data={item}
+                                    /> : null
+                                }
+
+                            </>
+                        )}
+                    </ProductsSplide>
+
+
+                </Card>
+                <Card>
+                    <Tittle tittle="celular" link="/celular" />
+
+                    <ProductsSplide>
+                        {product.products.map((item, key) =>
+                            <>
+                                {product.products[key].category[0].name === "celular" ?
+                                    <SplideCategoryProduct
+                                        data={item}
+                                    /> : null
+                                }
+
+                            </>
                         )}
                     </ProductsSplide>
 
@@ -49,54 +79,3 @@ const HomePage = () => {
 }
 
 export default HomePage
-
-const imgs = [
-    {
-        id: 1,
-        img: "https://i.ebayimg.com/images/g/7JUAAOSwPf5fYd-c/s-l225.webp"
-    },
-    {
-        id: 2,
-        img: "https://i.ebayimg.com/images/g/lOsAAOSw8d5fx03L/s-l225.webp"
-    },
-    {
-        id: 3,
-        img: "https://i.ebayimg.com/images/g/OZMAAOSwIoNdIxbI/s-l225.webp"
-    },
-    {
-        id: 4,
-        img: "https://i.ebayimg.com/images/g/nbIAAOSwcW9giqco/s-l225.webp"
-    },
-    {
-        id: 5,
-        img: "https://i.ebayimg.com/images/g/t5oAAOSwthtfoesX/s-l225.webp"
-    },
-    {
-        id: 6,
-        img: "https://i.ebayimg.com/images/g/gAcAAOSwD6BgpPe7/s-l225.webp"
-    },
-    {
-        id: 12,
-        img: "https://i.ebayimg.com/images/g/7JUAAOSwPf5fYd-c/s-l225.webp"
-    },
-    {
-        id: 21,
-        img: "https://i.ebayimg.com/images/g/lOsAAOSw8d5fx03L/s-l225.webp"
-    },
-    {
-        id: 31,
-        img: "https://i.ebayimg.com/images/g/OZMAAOSwIoNdIxbI/s-l225.webp"
-    },
-    {
-        id: 41,
-        img: "https://i.ebayimg.com/images/g/nbIAAOSwcW9giqco/s-l225.webp"
-    },
-    {
-        id: 51,
-        img: "https://i.ebayimg.com/images/g/t5oAAOSwthtfoesX/s-l225.webp"
-    },
-    {
-        id: 61,
-        img: "https://i.ebayimg.com/images/g/gAcAAOSwD6BgpPe7/s-l225.webp"
-    },
-]

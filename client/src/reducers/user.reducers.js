@@ -1,9 +1,12 @@
 import { userActivateConstants, userConstants, userRegisterConstants } from "../actions/constants";
 
 const initState = {
+    address:[],
+    orders:[],
     error: null,
     message: '',
-    loading: false
+    loading: false,
+    orderFetching:false
 }
 
 export default (state = initState, action) => {

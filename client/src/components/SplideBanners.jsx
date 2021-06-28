@@ -1,5 +1,6 @@
-import { Splide } from '@splidejs/react-splide'
-const HomeSplide = ({children}) => {
+import {Splide} from "@splidejs/react-splide"
+
+const SplideBanners = ({children}) => {
     const Options = {
         type: 'slide',
         rewind: true,
@@ -12,16 +13,15 @@ const HomeSplide = ({children}) => {
         autoplay: true
     }
     return (
-        <aside className="SplideBanner container">
+        <aside className="container">
             <Splide
-
-                options={Options}
+            options={Options}
             >
                 {children}
             </Splide>
+
         </aside>
     )
 }
 
-export default HomeSplide
-
+export default SplideBanners

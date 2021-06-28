@@ -15,7 +15,7 @@ const initState = {
 };
 
 export default (state = initState, action) => {
-    switch(action.type){
+    switch (action.type) {
         case cartConstants.ADD_TO_CART_REQUEST:
             state = {
                 ...state,
@@ -40,6 +40,9 @@ export default (state = initState, action) => {
             state = {
                 ...initState
             }
+            break;
+        default:
+            break;
     }
     return state;
 }

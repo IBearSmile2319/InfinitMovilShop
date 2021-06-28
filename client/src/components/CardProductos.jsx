@@ -2,22 +2,22 @@ import { Button, Card, Tooltip } from "antd"
 import { Link } from "react-router-dom"
 import {
     ShoppingCartOutlined,
-    // SettingOutlined,
-    // EditOutlined,
-    // EllipsisOutlined 
 } from '@ant-design/icons'
 import { generatePublicUrl } from "../urlConfig"
-const CardProductos = ({ id, img, title, price, link }) => {
+import { useDispatch } from "react-redux"
+import { addToCart } from "../actions"
+const CardProductos = ({ id, img, title, price, link,offer }) => {
+    const dispatch = useDispatch()
     return (
         <Card
             hoverable
             title={title}
             style={{ width: '100%', fontSize: 12 }}
             cover={
-                <Link style={{width:'100%',height:120,alignItems:'center'}}>
-                    <img alt={title} 
-                    src={generatePublicUrl(img)}
-                        style={{width:'100%',height:'100%', objectFit: "contain", margin: '2px 0 0 0' }}
+                <Link to={link} style={{ width: '100%', height: 120, alignItems: 'center' }}>
+                    <img alt={title}
+                        src={generatePublicUrl(img)}
+                        style={{ width: '100%', height: '100%', objectFit: "contain", margin: '2px 0 0 0' }}
                     />
                 </Link>
             }
@@ -28,11 +28,14 @@ const CardProductos = ({ id, img, title, price, link }) => {
         // ]}
         >
             <div className="d-flex item-center space-between">
-                <Link className="card_product-link" to="/nose">
+                <Link className="card_product-link" to={link}>
                     <div>S/.{price ? price : 0} PEN</div>
                 </Link>
                 <Tooltip title="Añadir al carrito">
                     <Button
+                        onClick={() => {
+                            dispatch(addToCart({ _id:id, name:title, price, img }))
+                        }}
                         shape="circle"
                         icon={<ShoppingCartOutlined />}
                     />

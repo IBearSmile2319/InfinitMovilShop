@@ -34,9 +34,9 @@ const AdminLinks = () => {
                 </Link>
             </li>
             <li>
-                <Link to="/admin/dashboard">
-                    <i className="bx bx-pie-chart-alt-2"></i>
-                    <span>Analytics</span>
+                <Link to="/admin/banners">
+                <i class='bx bxs-file-image' ></i>
+                <span>Banner principal</span>
                 </Link>
             </li>
             <li>

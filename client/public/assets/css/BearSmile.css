@@ -1157,9 +1157,124 @@ mark{
 /* ====================================
             * Page info *
 ==================================== */
-
-
-
+.product-details-container{
+  margin-top: 0.2rem;
+}
+.product-details-img{
+  width: 100%;
+  padding: 5px;
+  align-items: center;
+  text-align: center;
+}
+.product-details-img .ing-showcase{
+  height:400px;
+  width: 100%;
+  border:1px solid var(--border-color);
+  text-align: center;
+  background: var(--bg-primary);
+}
+.product-details-img .ing-showcase .ing-showcase-img{
+  width: 100%;
+  height: 400px;
+  position: relative;
+  object-fit: contain;
+}
+.product-details-img .ing-select{
+  text-align: center;
+  height: 120px;
+}
+.product-details-img .ing-select img{
+  object-fit: contain;
+  height: 120px;
+}
+.ing-select-item{
+  height: 100%;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+.product-detail-responsive{
+  display:none;
+}
+.product-details-content{
+  margin: 0 2rem;
+  
+}
+.product-details-price{
+  margin: 1rem 0 1rem 0;
+}
+.purchase-info{
+  margin: 1rem 0 1rem 0;
+}
+@media only screen and (max-width:768px){
+  .product-detail-responsive{
+    display: block;
+  }
+  .product-detail-description{
+    display: none;
+  }
+  .product-details-img .ing-select{
+    text-align: center;
+    height: 50px;
+  }
+  .product-details-img .ing-select img{
+    object-fit: contain;
+    height: 50px;
+  }
+  .ing-select-item{
+    height: 100%;
+  }
+}
+/* ====================================
+            * page cart item details *
+==================================== */
+.cart-table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.cart-info{
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.cart-info>img{
+  height: 70px;
+  width: 70px;
+  object-fit: contain;
+}
+.cart-table>tr th{
+text-align: left;
+padding: 2px;
+background: var(--bg-primary);
+/* border: 1px solid var(--border-color) */
+}
+.cart-table>tr td{
+  /* border: 1px solid var(--border-color); */
+  padding: 5px 5px;
+  
+}
+.total-price{
+  width: 100%;
+  padding: 3px;
+  text-align: center;
+  align-items: center;
+}
+.total-price .subtotal{
+  width:100%;
+  padding: 10px;
+  margin: 0 auto;
+  border:1px solid var(--border-color);
+}
+.total-price .subtotal p{
+  background: var(--bg-primary);
+  padding: 5px;
+  border-bottom: 1px solid var(--border-color);
+}
+.subtotal .subtotal-price{
+  display: flex;
+  margin: 5px 0;
+  justify-content: space-between;
+}
 
 
 
@@ -1339,6 +1454,7 @@ mark{
         display: none;
     }
 }
+
 
 
 
@@ -18193,7 +18309,7 @@ textarea.ant-input {
   line-height: 18px;
 }
 .ant-comment-content-author-name {
-  color: rgba(0, 0, 0, 0.45);
+  /* color: rgba(0, 0, 0, 0.45); */
   font-size: 14px;
   transition: color 0.3s;
 }
@@ -18966,10 +19082,10 @@ textarea.ant-input {
     text-align: right;
   }
 }
-.ant-form-item {
+/* .ant-form-item { */
   /* Some non-status related component style is in `components.less` */
   /* To support leave along ErrorList. We add additional className to handle explain style */
-}
+/* } */
 .ant-form-item-explain.ant-form-item-explain-error {
   color: #ff4d4f;
 }
@@ -24036,10 +24152,10 @@ textarea.ant-mentions {
   margin-right: 67px;
   margin-left: 0;
 }
-.ant-steps-dot .ant-steps-item-icon .ant-steps-icon-dot,
+/* .ant-steps-dot .ant-steps-item-icon .ant-steps-icon-dot,
 .ant-steps-dot.ant-steps-small .ant-steps-item-icon .ant-steps-icon-dot {
   /* expand hover area */
-}
+} */
 .ant-steps-rtl.ant-steps-dot .ant-steps-item-icon .ant-steps-icon-dot,
 .ant-steps-rtl.ant-steps-dot.ant-steps-small .ant-steps-item-icon .ant-steps-icon-dot {
   float: right;
@@ -24926,11 +25042,11 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
     box-shadow: none !important;
   }
 }
-.ant-table {
+/* .ant-table { */
   /* title + table */
   /* table */
   /* table + footer */
-}
+/* } */
 .ant-table-title {
   border-radius: 2px 2px 0 0;
 }

@@ -4,14 +4,14 @@ const initialState = {
     priceRange: {},
     productsByPrice: {
         under5: [],
-        under10:[],
+        under10: [],
         under20: [],
         under50: [],
         under1s: [],
         under2s: [],
         under3s: [],
         under1k: [],
-        under2k:[],
+        under2k: [],
         under3k: [],
     },
     pageRequest: false,
@@ -77,6 +77,8 @@ export default (state = initialState, action) => {
                 loading: false,
                 error: action.payload.error,
             };
+            break;
+        default:
             break;
     }
     return state

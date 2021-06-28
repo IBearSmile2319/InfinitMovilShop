@@ -1,9 +1,5 @@
 import Card from "../components/Card"
-import MainContent from "../components/layout/content/MainContent"
-import Header from "../components/layout/Header/Header"
-import Navbar from "../components/navbar/Navbar"
 import Tittle from "../components/Tittle"
-import Footer from '../components/Footer/Footer'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductsBySlug } from '../actions'
@@ -24,34 +20,47 @@ const ProductStore = (props) => {
     return (
         <>
             {Object.keys(product.productsByPrice).map((key) => {
-                    return (
-                        <>
-                        {product.productsByPrice[key].length?
+                return (
+                    <>
+                        {product.productsByPrice[key].length ?
                             <Card>
-                            <Tittle tittle={`${props.match.params.slug} ${key}`}/>
-                            <ProductsSplide>
-                                {
-                                    product.productsByPrice[key].map(product =>
-                                        <SplideSlide>
-                                            <Badge.Ribbon color="orange" text="oferta">
-                                                <CardProductos
-                                                    id={product._id}
-                                                    title={product.name}
-                                                    price={product.price}
-                                                    img={product.productPictures[0].img}
-                                                />
-                                            </Badge.Ribbon>
-                                        </SplideSlide>)
-                                }
+                                <Tittle tittle={`${props.match.params.slug} ${key}`} />
+                                <ProductsSplide>
+                                    {
+                                        product.productsByPrice[key].map(product =>
+                                            <SplideSlide>
+                                                {product.offer ?
+                                                    <Badge.Ribbon color="orange" text="oferta">
+                                                        <CardProductos
+                                                            id={product._id}
+                                                            title={product.name}
+                                                            price={product.price}
+                                                            img={product.productPictures[0].img}
+                                                            link={`/product/${product.slug}/${product._id}/p`}
+                                                        />
+                                                    </Badge.Ribbon> :
+                                                    // <Badge.Ribbon color="orange" text="oferta">
+                                                    <CardProductos
+                                                        id={product._id}
+                                                        title={product.name}
+                                                        price={product.price}
+                                                        img={product.productPictures[0].img}
+                                                        link={`/product/${product.slug}/${product._id}/p`}
+                                                    />
+                                                    // </Badge.Ribbon>
+                                                }
 
-                            </ProductsSplide>
-                        </Card>
-                            :null
+                                            </SplideSlide>)
+                                    }
+
+                                </ProductsSplide>
+                            </Card>
+                            : null
                         }
-                        </>
-                        
-                    );
-                })}
+                    </>
+
+                );
+            })}
         </>
     )
 }

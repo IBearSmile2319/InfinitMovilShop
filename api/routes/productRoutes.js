@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { addProductController, getProductBySlug, deleteProductById, getProducts, getProductDetailsById } = require('../controllers/ProductControllers')
+const { addProductController, getProductBySlug, deleteProductById, getProducts, getProductDetailsById, getProductByCategory } = require('../controllers/ProductControllers')
 const { requireSignin, adminMiddleware, upload } = require('../middlewares')
 const router = Router()
 
@@ -10,6 +10,7 @@ upload.array('productPictures'),
 addProductController
 )
 router.get('/products/:slug',getProductBySlug)
+router.get('/products/category/:category',getProductByCategory)
 // router.get('/product/getproduct')
 router.get("/product/:productId", getProductDetailsById);
 router.delete(

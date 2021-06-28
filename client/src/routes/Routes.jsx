@@ -13,19 +13,32 @@ import Products from '../pages/Admin/Products'
 import PublicRoutes from './PublicRoutes'
 import Pages from '../pages/Admin/Pages'
 import ProductListPage from '../pages/ProductListPage'
+import ProductDetailsPage from '../pages/ProductDetailsPage'
+import CartPage from '../pages/CartPage'
+import CheckoutPage from '../pages/CheckoutPage'
+import Banners from '../pages/Admin/Banners'
+import OrderPage from '../pages/OrderPage'
 
 const Routes = () => {
     return (
         <Switch>
+            <PrivateRoutes exact path="/admin/banners" component={Banners}/>
             <PrivateRoutes exact path="/admin/pages" component={Pages} />
             <PrivateRoutes exact path="/admin/products" component={Products} />
             <PrivateRoutes exact path="/admin/users" component={Users} />
             <PrivateRoutes exact path="/admin/categories" component={Category} />
             <PrivateRoutes exact path="/admin/dashboard" component={Dashboard} />
             <PrivateRoutes exact path="/admin" component={Dashboard} />
-            <PublicRoutes exact path="/perfil/:nombre" component={Perfil} />
-            <Route exact path="/users/active/:token" component={Activate} />
+            {/* User Routes */}
+            <PublicRoutes exact path="/account/profile" component={Perfil} />
+            {/* Product Routes */}
+            <PublicRoutes exact path="/account/orders" component={OrderPage}/>
+            <Route exact path="/cart" component={CartPage} />
+            <Route exact path="/checkout" component={CheckoutPage} />
+            <Route path="/product/:productSlug/:productId/p"component={ProductDetailsPage}/>
             <Route exact path="/product/:slug" component={ProductListPage} />
+            {/* Initial routes */}
+            <Route exact path="/users/active/:token" component={Activate} />
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/signin" component={Signin} />
             <Route path="/" exact component={HomePage} />

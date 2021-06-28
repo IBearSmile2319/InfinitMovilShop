@@ -21,6 +21,8 @@ import Avatar from 'antd/lib/avatar/avatar'
 const Navbar = () => {
   const auth = useSelector(state => state.auth)
   const category = useSelector(state => state.category);
+  const cart = useSelector(state => state.cart)
+  const cartItems = cart.cartItems
   const theme_dark = () => {
     const themecheck = document.getElementById('nav_switch');
     const localthemecon = localStorage.getItem('theme');
@@ -113,7 +115,7 @@ const Navbar = () => {
                       <Link to="/signup" className="btn register-menu">Comenzar</Link>
                     </div>
                   </li>
-                  <Divider style={{color:'var(--text-color-primary)'}}>Categorias principales</Divider>
+                  <Divider style={{ color: 'var(--text-color-primary)' }}>Categorias principales</Divider>
                   {renderCategoriesOneDefault(category.categories)}
                 </ul>
               </Drawer>
@@ -148,13 +150,13 @@ const Navbar = () => {
             </Menu.Item> : null
           }
           <Menu.Item>
-            <Link to="/profile">Mi Perfil</Link>
+            <Link to="/account/profile">Mi Perfil</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link to="/pedidos">Mis pedidos</Link>
+            <Link to="/account/orders">Mis pedidos</Link>
           </Menu.Item>
           <Menu.Item>
-            <Link to="/pedidos">Lista de deseos</Link>
+            <Link to="/account/favorite">Lista de deseos</Link>
           </Menu.Item>
 
         </Menu>
@@ -201,15 +203,15 @@ const Navbar = () => {
                 : null
               }
               <li>
-                <Link to="/profile">Mi Perfil</Link>
+                <Link to="/account/profile">Mi Perfil</Link>
               </li>
               <li>
-                <Link to="/pedidos">Mis pedidos</Link>
+                <Link to="/account/orders">Mis pedidos</Link>
               </li>
               <li>
-                <Link to="/pedidos">Lista de deseos</Link>
+                <Link to="/account/favorite">Lista de deseos</Link>
               </li>
-              <Divider style={{color:'var(--text-color-primary)'}}>Categorias principales</Divider>
+              <Divider style={{ color: 'var(--text-color-primary)' }}>Categorias principales</Divider>
               {renderCategoriesOneDefault(category.categories)}
             </ul>
           </Drawer>
@@ -261,8 +263,8 @@ const Navbar = () => {
             </div>
           </li>
           <li>
-            <Link to="/shoppingcart">
-              <Badge count={2} style={{ background: 'var(--secondary)' }}>
+            <Link to="/cart">
+              <Badge count={Object.keys(cartItems) ? Object.keys(cartItems).length : 0} style={{ background: 'var(--secondary)' }}>
                 <ShoppingCartOutlined style={{ fontSize: 27, color: 'var(--text-color-secondary)' }} />
               </Badge></Link>
           </li>

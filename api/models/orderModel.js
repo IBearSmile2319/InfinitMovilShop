@@ -39,7 +39,7 @@ const orderSchema=new Schema(
         },
         paymentType: {
           type: String,
-          enum: ["cod", "card"],
+          enum: ["cod", "card","contra entrega"],
           required: true,
         },
         orderStatus: [

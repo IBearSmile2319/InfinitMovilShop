@@ -3,8 +3,9 @@ import { UploadOutlined } from '@ant-design/icons';
 import Modal from "antd/lib/modal/Modal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import createCategoryList from "../../helpers/createCategoryList";
+
 import { createPage } from "../../actions/page.actions";
+import {createCategoryList,linearCreateCategoryList} from "../../helpers/createCategoryList";
 const { TextArea } = Input
 const ModalPages = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -18,6 +19,20 @@ const ModalPages = () => {
     const [banners, setBanners] = useState([])
     const [products, setProducts] = useState([])
     const dispatch = useDispatch()
+    
+    useEffect(() => {
+        setCategories(
+            linearCreateCategoryList(category.categories)
+        )
+
+    }, [category])
+
+    useEffect(() => {
+        // poner el spiner luego
+        if (!page.loading) {
+            setIsModalVisible(false);
+        }
+    }, [page])
     // modal
     const showModal = () => {
         setIsModalVisible(true);
@@ -35,7 +50,7 @@ const ModalPages = () => {
 
         setCategoryId(e.target.value)
 
-       setType(category.type?category.type:"")
+       setType(category.type)
     }
     const handleBannersImg = (e) => {
         console.log(e)
@@ -61,19 +76,7 @@ const ModalPages = () => {
         dispatch(createPage(form))
     }
 
-    useEffect(() => {
-        setCategories(
-            createCategoryList(category.categories)
-        )
-
-    }, [category])
-
-    useEffect(() => {
-        // poner el spiner luego
-        if (!page.loading) {
-            setIsModalVisible(false);
-        }
-    }, [page])
+    
 
     const upload = {
         action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',

@@ -18,7 +18,7 @@ export default (state = initState, action) => {
             state = {
                 ...state,
                 loading: false,
-                page:action.payload.page
+                page: action.payload.page
             }
             break;
         case pageConstants.CREATE_PAGE_FAILURE:
@@ -27,6 +27,8 @@ export default (state = initState, action) => {
                 loading: false,
                 error: action.payload.error
             }
+            break;
+        default:
             break;
     }
 

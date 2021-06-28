@@ -64,19 +64,24 @@ export const deleteProductById = (payload) => {
 
 export const getProductsBySlug = (slug) => {
     return async dispatch => {
-        const res = await axios.get(`/products/${slug}`);
-        if (res.status === 200) {
+        await axios.get(`/products/${slug}`)
+        .then(res=>{
             dispatch({
                 type: productConstants.GET_PRODUCTS_BY_SLUG,
                 payload: res.data
             });
-        } else {
-            // dispatch({
-            //     type: 
-            // })
-        }
+        })
+        
     }
 }
+// export const getProductsByCategory = (category) => {
+//     return async dispatch => {
+//         const res = await axios.get(`/products/category/${category}`)
+//         .then(res=>{
+//             console.log(res.data)
+//         })
+//     }
+// }
 
 export const getProductPage = (payload) => {
     return async dispatch => {
@@ -110,19 +115,21 @@ export const getProductDetailsById = (payload) => {
         let res;
         try {
             const { productId } = payload.params;
-            res = await axios.get(`/product/${productId}`);
-            console.log(res);
-            dispatch({
-                type: productConstants.GET_PRODUCT_DETAILS_BY_ID_SUCCESS,
-                payload: { productDetails: res.data.product }
-            });
-
+            await axios.get(`/product/${productId}`)
+            .then(res=>{
+                dispatch({
+                    type: productConstants.GET_PRODUCT_DETAILS_BY_ID_SUCCESS,
+                    payload: { productDetails: res.data.product }
+                });
+            }).catch(err=>{
+                dispatch({
+                    type: productConstants.GET_PRODUCT_DETAILS_BY_ID_FAILURE,
+                    payload: { error: err.response.data.error }
+                });
+            })
+        
         } catch(error) {
-            console.log(error);
-            dispatch({
-                type: productConstants.GET_PRODUCT_DETAILS_BY_ID_FAILURE,
-                payload: { error: res.data.error }
-            });
+            
         }
 
     }

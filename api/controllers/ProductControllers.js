@@ -75,12 +75,36 @@ exports.getProductBySlug = async (req, res) => {
             }
         })
 }
+exports.getProductByCategory = async (req, res) => {
+    const { category } = req.params
+    await Category.findOne({ name: category })
+        .select('_id')
+        .exec((error, category) => {
+            if (error) {
+                return res.status(400).json({ errors: error })
+            }
+            if (category) {
+                Product.find({ category: category._id })
+                    .exec((error, products) => {
+                        if (error) {
+                            return res.status(400).json({ errors: error })
+                        }
+                        if (products.length > 0) {
+                            res.status(200).json({
+                                ...products
+                            })
+                        }
+
+                    })
+            }
+        })
+}
 
 exports.getProductDetailsById = (req, res) => {
     const { productId } = req.params;
     if (productId) {
         Product.findOne({ _id: productId }).exec((error, product) => {
-            if (error) return res.status(400).json({ error });
+            if (error) return res.status(400).json({ error});
             if (product) {
                 res.status(200).json({ product });
             }
@@ -107,7 +131,7 @@ exports.deleteProductById = (req, res) => {
 
 exports.getProducts = async (req, res) => {
     const products = await Product.find({ createdBy: req.user._id })
-        .select("_id name price quantity slug description productPictures category")
+        .select("_id name price quantity slug description offer productPictures category")
         .populate({ path: "category", select: "_id name" })
         .exec();
 

@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { isUserLoggedIn } from "./actions";
+import { getAllBanner, isUserLoggedIn, updateCart } from "./actions";
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -14,17 +14,23 @@ function App() {
   const auth = useSelector(state => state.auth)
 
   useEffect(() => {
+
+    dispatch(getInitialData())
+    // axios.get('https://freegeoip.app/json/')
+    //   .then(res => {
+    //     console.log(res)
+    //   }).catch(err=>{
+    //     console.log(err)
+    //   })
+
+  }, [])
+  useEffect(() => {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn())
     }
-    dispatch(getInitialData())
-    axios.get('https://freegeoip.app/json/')
-      .then(res => {
-        console.log(res)
-      }).catch(err=>{
-        console.log(err)
-      })
-  }, [])
+    dispatch(updateCart())
+    dispatch(getAllBanner())
+  }, [auth.authenticate])
 
   return (
     <Container>
