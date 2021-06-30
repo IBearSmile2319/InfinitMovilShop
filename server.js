@@ -7,7 +7,7 @@ path= require('path');
 require('dotenv').config();
 const app= express();
 // Connection to DataBase mongoose
-require('./config/dbmongo')
+require('./api/config/dbmongo')
 // Use Body-Parser
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
@@ -16,16 +16,16 @@ app.use('/public',express.static(path.join(__dirname,'uploads')))
 // public paths for images and other extra components
 // ....
 // load all routes
-const usersRoutes = require('./routes/usersRoutes')
-const categoryRoutes=require('./routes/categoryRoutes')
-const productRoutes=require('./routes/productRoutes')
-const cartRoutes=require('./routes/cartRoutes')
-const InitialDataRoutes=require('./routes/initialData');
-const LocalizationRoutes=require('./routes/LocalizationRoutes');
-const pageRoutes=require('./routes/pageRoutes');
-const orderRoutes=require('./routes/orderRoutes');
-const addressRoutes=require('./routes/addressRoutes');
-const bannersRoutes=require('./routes/bannersRoutes');
+const usersRoutes = require('./api/routes/usersRoutes')
+const categoryRoutes=require('./api/routes/categoryRoutes')
+const productRoutes=require('./api/routes/productRoutes')
+const cartRoutes=require('./api/routes/cartRoutes')
+const InitialDataRoutes=require('./api/routes/initialData');
+const LocalizationRoutes=require('./api/routes/LocalizationRoutes');
+const pageRoutes=require('./api/routes/pageRoutes');
+const orderRoutes=require('./api/routes/orderRoutes');
+const addressRoutes=require('./api/routes/addressRoutes');
+const bannersRoutes=require('./api/routes/bannersRoutes');
 // Use to routes
 app.use(cors({
     origin:process.env.CLIENT_URL
@@ -44,10 +44,10 @@ app.use('/api',bannersRoutes)
 
 // configuration for deploy
 if(process.env.NODE_ENV==="production"){
-    app.use(express.static('./client/build'))
+    app.use(express.static('client/build'))
     app.use(morgan('tiny'))
     app.get('*',(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'./client','build','index.html'))
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     })
 }
 app.use((req,res)=>{
