@@ -16,12 +16,12 @@ function App() {
   useEffect(() => {
 
     dispatch(getInitialData())
-    // axios.get('https://freegeoip.app/json/')
-    //   .then(res => {
-    //     console.log(res)
-    //   }).catch(err=>{
-    //     console.log(err)
-    //   })
+    axios.get('https://freegeoip.app/json/')
+      .then(res => {
+        console.log(res)
+      }).catch(err=>{
+        console.log(err)
+      })
 
     dispatch(getAllBanner())
   }, [])

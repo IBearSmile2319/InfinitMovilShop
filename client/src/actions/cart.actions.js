@@ -9,7 +9,6 @@ const getCartItems = () => {
       await axios.post(`/user/getCartItems`)
         .then(res => {
           const { cartItems } = res.data;
-          console.log({ getCartItems: cartItems });
           if (cartItems) {
             dispatch({
               type: cartConstants.ADD_TO_CART_SUCCESS,

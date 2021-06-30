@@ -1,4 +1,4 @@
-const url="http://localhost:5000"
+const url="https://infinitm.herokuapp.com"
 export const api=`${url}/api`
 export const generatePublicUrl=(filename)=>{
     return `${url}/public/${filename}`
