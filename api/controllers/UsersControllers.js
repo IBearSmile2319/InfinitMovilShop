@@ -99,10 +99,11 @@ exports.signInController = async (req, res, next) => {
         const UserAndEmail = email.includes("@")
 
         Users.findOne(UserAndEmail ? { email } : { username: email })
-            .exec((error, user) => {
+            .exec(async (error, user) => {
                 if (error) return res.status(400).json({ errors: error })
                 if (user) {
-                    if (user.authenticate(password)) {
+                    const isPassword=await user.authenticate(password)
+                    if (isPassword) {
                         const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
                             expiresIn: "1d"
                         })
@@ -138,3 +139,8 @@ exports.signoutControllers = (req, res) => {
 exports.profileController = (req, res, next) => {
     res.status(200).json({ user: 'profile' })
 }
+
+
+// orders
+
+

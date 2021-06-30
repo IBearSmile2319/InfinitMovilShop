@@ -8,9 +8,6 @@ import { ReactComponent as MenuIcon } from '../../assets/img/ion-icons/menu.svg'
 
 import {
   ShoppingCartOutlined,
-  // SettingOutlined,
-  // EditOutlined,
-  // EllipsisOutlined 
 } from '@ant-design/icons'
 
 import { useSelector } from 'react-redux'

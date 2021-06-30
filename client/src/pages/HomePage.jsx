@@ -9,12 +9,19 @@ import Tittle from "../components/Tittle"
 import Footer from '../components/Footer/Footer'
 import { SplideSlide } from "@splidejs/react-splide"
 import { Link } from "react-router-dom"
-import { useSelector } from "react-redux"
+import { 
+    // useDispatch, 
+    useSelector } from "react-redux"
 import { generatePublicUrl } from "../urlConfig"
 import SplideCategoryProduct from "../components/Home/SplideCategoryProduct"
+// import { useEffect } from "react"
 const HomePage = () => {
     const banners = useSelector(state => state.banners)
     const product = useSelector(state => state.product)
+    // const dispatch = useDispatch()
+    // useEffect(()=>{
+    //     dispatch()
+    // },[])
 
     return (
         <>

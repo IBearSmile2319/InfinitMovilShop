@@ -10524,14 +10524,14 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: rgba(0, 0, 0, 0.85);
+  /* color: rgba(0, 0, 0, 0.85); */
   font-size: 14px;
   font-variant: tabular-nums;
   line-height: 1.5715;
   list-style: none;
   font-feature-settings: 'tnum';
   position: relative;
-  background: #fff;
+  background: var(--bg-primary);
   border-radius: 2px;
 }
 .ant-card-rtl {
@@ -10546,13 +10546,13 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
   box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.16), 0 3px 6px 0 rgba(0, 0, 0, 0.12), 0 5px 12px 4px rgba(0, 0, 0, 0.09);
 }
 .ant-card-bordered {
-  border: 1px solid #f0f0f0;
+  border: 1px solid var(--border-color);
 }
 .ant-card-head {
   min-height: 48px;
   margin-bottom: -1px;
   padding: 0 24px;
-  color: rgba(0, 0, 0, 0.85);
+  /* color: rgba(0, 0, 0, 0.85); */
   font-weight: 500;
   font-size: 16px;
   background: transparent;
@@ -10764,14 +10764,14 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 }
 .ant-card-meta-title {
   overflow: hidden;
-  color: rgba(0, 0, 0, 0.85);
+  /* color: rgba(0, 0, 0, 0.85); */
   font-weight: 500;
   font-size: 16px;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .ant-card-meta-description {
-  color: rgba(0, 0, 0, 0.45);
+  /* color: rgba(0, 0, 0, 0.45); */
 }
 .ant-card-loading {
   overflow: hidden;
@@ -23480,7 +23480,7 @@ textarea.ant-mentions {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color: rgba(0, 0, 0, 0.85);
+  /* color: rgba(0, 0, 0, 0.85); */
   font-size: 14px;
   font-variant: tabular-nums;
   line-height: 1.5715;
@@ -23551,7 +23551,7 @@ textarea.ant-mentions {
   position: relative;
   display: inline-block;
   padding-right: 16px;
-  color: rgba(0, 0, 0, 0.85);
+  /* color: rgba(0, 0, 0, 0.85); */
   font-size: 16px;
   line-height: 32px;
 }
@@ -23568,7 +23568,7 @@ textarea.ant-mentions {
 .ant-steps-item-subtitle {
   display: inline;
   margin-left: 8px;
-  color: rgba(0, 0, 0, 0.45);
+  /* color: rgba(0, 0, 0, 0.45); */
   font-weight: normal;
   font-size: 14px;
 }
@@ -23581,7 +23581,7 @@ textarea.ant-mentions {
   border-color: rgba(0, 0, 0, 0.25);
 }
 .ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon {
-  color: rgba(0, 0, 0, 0.25);
+  /* color: rgba(0, 0, 0, 0.25); */
 }
 .ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon .ant-steps-icon-dot {
   background: rgba(0, 0, 0, 0.25);
@@ -23609,13 +23609,13 @@ textarea.ant-mentions {
   background: #1890ff;
 }
 .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title {
-  color: rgba(0, 0, 0, 0.85);
+  /* color: rgba(0, 0, 0, 0.85); */
 }
 .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-title::after {
   background-color: #f0f0f0;
 }
 .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-content > .ant-steps-item-description {
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--text-color-secondary);
 }
 .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-tail::after {
   background-color: #f0f0f0;

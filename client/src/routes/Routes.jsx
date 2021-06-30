@@ -18,10 +18,13 @@ import CartPage from '../pages/CartPage'
 import CheckoutPage from '../pages/CheckoutPage'
 import Banners from '../pages/Admin/Banners'
 import OrderPage from '../pages/OrderPage'
+import Orders from '../pages/Admin/Orders'
+import OrderDetailsPage from '../pages/OrderDetailsPage'
 
 const Routes = () => {
     return (
         <Switch>
+            <PrivateRoutes exact path="/admin/orders" component={Orders}/>
             <PrivateRoutes exact path="/admin/banners" component={Banners}/>
             <PrivateRoutes exact path="/admin/pages" component={Pages} />
             <PrivateRoutes exact path="/admin/products" component={Products} />
@@ -31,6 +34,7 @@ const Routes = () => {
             <PrivateRoutes exact path="/admin" component={Dashboard} />
             {/* User Routes */}
             <PublicRoutes exact path="/account/profile" component={Perfil} />
+            <PublicRoutes exact path="/order_details/:orderId" component={OrderDetailsPage} />
             {/* Product Routes */}
             <PublicRoutes exact path="/account/orders" component={OrderPage}/>
             <Route exact path="/cart" component={CartPage} />

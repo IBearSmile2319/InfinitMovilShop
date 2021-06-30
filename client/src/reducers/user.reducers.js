@@ -4,9 +4,15 @@ const initState = {
     address:[],
     orders:[],
     error: null,
+    orderDetails:{
+        items:[],
+        orderStatus:[{isCompleted:""}],
+        address:{}
+    },
     message: '',
     loading: false,
-    orderFetching:false
+    orderFetching:false,
+    placedOrderId: null,
 }
 
 export default (state = initState, action) => {

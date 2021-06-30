@@ -23,20 +23,20 @@ const AdminLinks = () => {
             </li>
             <li>
                 <Link to="/admin/pages">
-                    <i className="bx bx-box"></i>
+                    <i class='bx bx-square-rounded'></i>
                     <span>Paginas</span>
                 </Link>
             </li>
             <li>
-                <Link to="/admin/dashboard">
-                    <i className="bx bx-list-ul"></i>
-                    <span>Lista de ordenes</span>
+                <Link to="/admin/orders">
+                <i class='bx bxs-basket' ></i>
+                    <span>Lista de pedidos</span>
                 </Link>
             </li>
             <li>
                 <Link to="/admin/banners">
-                <i class='bx bxs-file-image' ></i>
-                <span>Banner principal</span>
+                    <i class='bx bxs-file-image' ></i>
+                    <span>Banner principal</span>
                 </Link>
             </li>
             <li>

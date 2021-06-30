@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { getAllBanner, isUserLoggedIn, updateCart } from "./actions";
+import { getAddress, getAllBanner, isUserLoggedIn, updateCart } from "./actions";
 import { useDispatch, useSelector } from 'react-redux'
 
 
@@ -23,13 +23,18 @@ function App() {
     //     console.log(err)
     //   })
 
+    dispatch(getAllBanner())
   }, [])
   useEffect(() => {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn())
+
     }
+
+    dispatch(getAddress())
+
     dispatch(updateCart())
-    dispatch(getAllBanner())
+
   }, [auth.authenticate])
 
   return (

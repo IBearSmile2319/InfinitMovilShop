@@ -31,7 +31,7 @@ exports.initialDataControllers=async(req,res)=>{
     .populate({path:'category',select:'_id name'})
     .exec()
     const orders = await Order.find({})
-    .populate("items.productId", "name")
+    .populate("items.productId", "name productPictures")
     .exec();
     const banners=await Banners.find({}).exec()
     res.status(200).json({

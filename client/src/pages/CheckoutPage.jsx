@@ -16,7 +16,7 @@ import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux"
 // import ListAddress from "../components/userCheckoutPage.jsx/ListAddress"
-import { addOrder, getAddress } from "../actions"
+import { addOrder } from "../actions"
 import NewAddress from "../components/userCheckoutPage/NewAddress"
 import Tittle from "../components/Tittle"
 import CartPrice from "../components/CartPrice"
@@ -179,9 +179,7 @@ const CheckoutPage = (props) => {
     }
 
 
-    useEffect(() => {
-        auth.authenticate && dispatch(getAddress())
-    }, [auth.authenticate])
+    
 
     const next = () => {
         setCurrent(current + 1);
