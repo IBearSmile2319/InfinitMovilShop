@@ -12,7 +12,7 @@ require('./api/config/dbmongo')
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 // app.use(morgan("dev"))
-app.use('/public',express.static(path.join(__dirname,'uploads')))
+app.use('/public',express.static(path.join(__dirname,'api/uploads')))
 // public paths for images and other extra components
 // ....
 // load all routes
