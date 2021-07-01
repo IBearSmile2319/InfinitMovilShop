@@ -3,26 +3,26 @@ const { check, validationResult } = require('express-validator');
 exports.validateSignupRequest = [
     check('firstName')
     .notEmpty()
-    .withMessage('firstName is required'),
+    .withMessage('Nombres es requerido'),
     check('lastName')
     .notEmpty()
-    .withMessage('lastName is required'),
+    .withMessage('Apellidos es requerido'),
     check('lastName'),
     check('email')
     .isEmail()
-    .withMessage('Valid Email is required'),
+    .withMessage('Se requiere que use un E-mail valido'),
     check('password')
     .isLength({ min: 6 })
-    .withMessage('Password must be at least 6 character long')
+    .withMessage('La contraseña debe tener mas de 6 caracteres')
 ];
 
 exports.validateSigninRequest = [
     check('email')
     .notEmpty()
-    .withMessage('username/E-mail is required'),
+    .withMessage('username/E-mail es requerido'),
     check('password')
     .isLength({ min: 6 })
-    .withMessage('Password must be at least 6 character long')
+    .withMessage('La contraseña debe tener mas de 6 caracteres')
 ];
 
 exports.isRequestValidated = (req, res, next) => {

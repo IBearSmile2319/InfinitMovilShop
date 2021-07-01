@@ -2,7 +2,7 @@ import axios from "../helpers/axios"
 import { userRegisterConstants, userActivateConstants, userConstants, cartConstants } from "./constants"
 import { toast } from 'react-toastify'
 import { Redirect } from "react-router"
-
+import { message } from "antd"
 
 export const register = (user) => {
     return async (dispatch) => {
@@ -10,15 +10,15 @@ export const register = (user) => {
         axios.post('/signup', {
             ...user
         }).then(res => {
-            const { message } = res.data;
-            toast.success(message)
+ 
+            message.success(res.data.message)
             dispatch({
                 type: userRegisterConstants.USER_REGISTER_SUCCESS,
-                payload: { message }
+                payload: { message:res.data.message }
             })
         }).catch(err => {
             const { errors } = err.response.data
-            toast.error(errors)
+            message.error(errors)
             dispatch({
                 type: userRegisterConstants.USER_REGISTER_FAILURE,
                 payload: { error: errors }
@@ -36,11 +36,11 @@ export const activate = (token) => {
             token
         }).then(res => {
             <Redirect to="/signin" />
-            const { message } = res.data;
-            toast.success(message)
+            // const { message } = res.data;
+            message.success(res.data.message)
             dispatch({
                 type: userActivateConstants.USER_ACTIVATE_SUCCESS,
-                payload: { message }
+                payload: { message:res.data.message }
             })
         }).catch(err => {
             toast.error(err.response.data.errors)
@@ -93,6 +93,7 @@ export const addAddress = (payload) => {
                     type: userConstants.ADD_USER_ADDRESS_SUCCESS,
                     payload: { address },
                 });
+                message.success("Ubicación agragada")
             }).catch(err=>{
                 const { error } = err.response;
                 dispatch({

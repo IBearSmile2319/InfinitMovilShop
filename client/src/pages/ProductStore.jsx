@@ -12,6 +12,7 @@ import CardProductos from "../components/CardProductos"
 
 const ProductStore = (props) => {
     const product = useSelector(state => state.product)
+    const priceRange=product.priceRange
     const dispatch = useDispatch()
     useEffect(() => {
         const { match } = props
@@ -25,7 +26,7 @@ const ProductStore = (props) => {
                     <>
                         {product.productsByPrice[key].length ?
                             <Card>
-                                <Tittle tittle={`${props.match.params.slug} ${key}`} />
+                                <Tittle tittle={`${props.match.params.slug} S/.${priceRange[key]} PEN`} />
                                 <ProductsSplide>
                                     {
                                         product.productsByPrice[key].map(product =>

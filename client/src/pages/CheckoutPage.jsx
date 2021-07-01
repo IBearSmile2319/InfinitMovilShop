@@ -10,20 +10,24 @@ import {
     DeleteOutlined,
     EditOutlined
 } from '@ant-design/icons'
+import { ReactComponent as EyeOutline } from '../assets/img/ion-icons/eye-outline.svg'
+import { ReactComponent as EyeOffOutline } from '../assets/img/ion-icons/eye-off-outline.svg'
+import { ReactComponent as KeyOutline } from '../assets/img/ion-icons/key-outline.svg'
 
 import { Steps, Button, message, Divider, Empty, Radio, Space, Comment, Tooltip, Row, Col, Result } from 'antd';
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import { useDispatch, useSelector } from "react-redux"
 // import ListAddress from "../components/userCheckoutPage.jsx/ListAddress"
-import { addOrder } from "../actions"
+import { addOrder, login } from "../actions"
 import NewAddress from "../components/userCheckoutPage/NewAddress"
 import Tittle from "../components/Tittle"
 import CartPrice from "../components/CartPrice"
+import { Link } from "react-router-dom"
 const { Step } = Steps;
 
 const CheckoutPage = (props) => {
-
+    
     const auth = useSelector(state => state.auth)
     const user = useSelector(state => state.user)
     const cart = useSelector(state => state.cart)
@@ -32,7 +36,7 @@ const CheckoutPage = (props) => {
     const [confirmAddress, setConfirmAddress] = useState(false)
     const [orderConfirmation, setOrderConfirmation] = useState(false)
 
-    const [paymentType,setPaymentType]=useState('')
+    const [paymentType, setPaymentType] = useState('')
 
     const dispatch = useDispatch()
 
@@ -41,19 +45,21 @@ const CheckoutPage = (props) => {
         setConfirmAddress(true)
     }
 
+
+
     const onConfirmOrder = () => {
         const totalAmount = Object.keys(cart.cartItems).reduce(
             (totalPrice, key) => {
-              const { price, qty } = cart.cartItems[key];
-              return totalPrice + price * qty;
+                const { price, qty } = cart.cartItems[key];
+                return totalPrice + price * qty;
             },
             0
-          );
-          const items = Object.keys(cart.cartItems).map((key) => ({
+        );
+        const items = Object.keys(cart.cartItems).map((key) => ({
             productId: key,
             payablePrice: cart.cartItems[key].price,
             purchasedQty: cart.cartItems[key].qty,
-          }));
+        }));
         const payload = {
             addressId: selectAddress._id,
             totalAmount,
@@ -65,6 +71,56 @@ const CheckoutPage = (props) => {
         setOrderConfirmation(true)
         message.success('Su pedido a sido confirmado!')
     }
+    const Login = (props) => {
+        const [visible, setVisible] = useState("password")
+        const [email, setEmail] = useState('')
+        const [password, setPassword] = useState('')
+        const userLogin = (e) => {
+            e.preventDefault()
+            const user = {
+                email,
+                password
+            }
+            dispatch(login(user))
+        }
+        return (
+            <>
+                <div className="form_group">
+                    <h2>
+                        Hola
+                        <span>Identifícate en Infinit Movil Shop o <Link to="/signup">Unete</Link> </span>
+                    </h2>
+                    <div className="form_input-content">
+                        <input type="text" className="form_field"
+                            placeholder="Username/E-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <label htmlFor="name" className="form_label">Username/E-mail</label>
+                    </div>
+                    <div className="form_input-content">
+                        <input type={visible} className="form_field form-password"
+                            placeholder="********"
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <span>
+                            {visible === "texto" ?
+                                <EyeOffOutline onClick={() => setVisible("password")} className="ion-icon" />
+                                :
+                                <EyeOutline onClick={() => setVisible("texto")} className="ion-icon" />
+                            }
+                        </span>
+                        <label htmlFor="name" className="form_label">Contraseña</label>
+                    </div>
+                    <div className="btn form-btn" onClick={userLogin}>
+                        <KeyOutline className="ion-icon" />
+                        Inicia sesión
+                    </div>
+                </div>
+            </>
+        )
+    }
+
     const ListAddress = (props) => {
 
         return (
@@ -179,7 +235,7 @@ const CheckoutPage = (props) => {
     }
 
 
-    
+
 
     const next = () => {
         setCurrent(current + 1);
@@ -200,7 +256,7 @@ const CheckoutPage = (props) => {
     const steps = [
         {
             title: <span style={{ color: 'var(--text-color-primary)' }}>Cuenta</span>,
-            content: 'hola',
+            content: <Login />,
             icon: <UserOutlined />
         },
         {

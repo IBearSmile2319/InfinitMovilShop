@@ -45,7 +45,7 @@ const HomePage = () => {
                     <PopularElement />
                 </Card> */}
                 <Card>
-                    <Tittle tittle="Samsung" link="/product/celular-samsung?cid=60dcd3bb3aad23001560fa75&type=store" />
+                    <Tittle tittle="SAMSUNG" link="/product/celular-samsung?cid=60dcd3bb3aad23001560fa75&type=store" />
 
                     <ProductsSplide>
                         {product.products.map((item, key) =>
@@ -62,13 +62,13 @@ const HomePage = () => {
 
 
                 </Card>
-                {/* <Card>
-                    <Tittle tittle="celular" link="/celular" />
+                <Card>
+                    <Tittle tittle="HUAWEI" link="/product/celular-huawei?cid=60dd47143bae4a4cf815e270&type=store" />
 
                     <ProductsSplide>
                         {product.products.map((item, key) =>
                             <>
-                                {product.products[key].category[0].name === "celular samsung" ?
+                                {product.products[key].category[0].name === "celular huawei" ?
                                     <SplideCategoryProduct
                                         data={item}
                                     /> : null
@@ -79,7 +79,25 @@ const HomePage = () => {
                     </ProductsSplide>
 
 
-                </Card> */}
+                </Card>
+                <Card>
+                    <Tittle tittle="Accesorios" link="/product/case-huawei?cid=60dd47fd3bae4a4cf815e276&type=store" />
+
+                    <ProductsSplide>
+                        {product.products.map((item, key) =>
+                            <>
+                                {product.products[key].category[0].name === "case huawei" ?
+                                    <SplideCategoryProduct
+                                        data={item}
+                                    /> : null
+                                }
+
+                            </>
+                        )}
+                    </ProductsSplide>
+
+
+                </Card>
             </MainContent>
             <Footer />
         </>

@@ -56,7 +56,7 @@ const Footer = () => {
                 <div className="copyright grid peq-col-1 med-col-2 col-2">
                     <div className="copyright-left">
                         &copy; 2021 Todos los Derechos reservados |
-                        <span> MagicMoon</span>
+                        <span> Estudiantes de SENATI</span>
                     </div>
                     <div className="copyright-right">
                         <ul>
