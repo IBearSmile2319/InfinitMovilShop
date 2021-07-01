@@ -100,12 +100,7 @@ const ProductDetailsPage = (props) => {
 
                                     <Tittle tittle="Descripción" />
                                     <p>
-                                        Lorem ipsum, dolor sit amet consectetur
-                                        adipisicing elit. Ea unde earum cumque tempora eos hic commodi
-                                        et, necessitatibus numquam vero deserunt magnam animi est sed saepe c
-                                        upiditate. Laborum,
-                                        enim delectus!
-                                        {/* {product.productDetails.description} */}
+                                        {product.productDetails.description}
                                     </p>
                                 </div>
                                 <div className="product-detail-responsive">
