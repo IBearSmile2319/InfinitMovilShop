@@ -9,20 +9,20 @@ exports.addOrder = (req, res) => {
       req.body.user = req.user._id;
       req.body.orderStatus = [
         {
-          type: "ordered",
+          type: "ordenado",
           date: new Date(),
           isCompleted: true,
         },
         {
-          type: "packed",
+          type: "confirmado",
           isCompleted: false,
         },
         {
-          type: "shipped",
+          type: "enviado",
           isCompleted: false,
         },
         {
-          type: "delivered",
+          type: "entregado",
           isCompleted: false,
         },
       ];

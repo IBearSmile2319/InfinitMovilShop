@@ -63,7 +63,7 @@ const ProductDetailsPage = (props) => {
                                 <div className="ing-select">
                                     <Splide
                                         options={{
-                                            perPage: 3,
+                                            perPage: product.productDetails.productPictures.length,
                                             pagination:false
                                         }}
                                     >

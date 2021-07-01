@@ -107,11 +107,11 @@ exports.signInController = async (req, res, next) => {
                         const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, {
                             expiresIn: "1d"
                         })
-                        const { firstName, lastName, email, username, role, fullName } = user;
+                        const {_id,firstName, lastName, email, username, role, fullName } = user;
                         res.cookie('token', token, { expiresIn: "1d" })
                         res.status(200).json({
                             user: {
-                                firstName, lastName, username, email, role, fullName
+                                _id,firstName, lastName, username, email, role, fullName
                             },
                             token,
                             message: `Bienvenido ${fullName}`

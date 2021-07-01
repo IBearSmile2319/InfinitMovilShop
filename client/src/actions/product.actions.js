@@ -1,6 +1,25 @@
+import { message } from "antd";
 import axios from "../helpers/axios"
 import { productConstants } from "./constants";
 const getProducts = () => {
+    return async (dispatch) => {
+        try {
+            dispatch({ type: productConstants.GET_ALL_PRODUCTS_REQUEST });
+            await axios.post(`product/getProducts`).then(res => {
+                const { products } = res.data;
+                dispatch({
+                    type: productConstants.GET_ALL_PRODUCTS_SUCCESS,
+                    payload: { products },
+                });
+            }).catch(err => {
+                dispatch({ type: productConstants.GET_ALL_PRODUCTS_FAILURE });
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    };
+};
+export const getAllProducts = () => {
     return async (dispatch) => {
         try {
             dispatch({ type: productConstants.GET_ALL_PRODUCTS_REQUEST });
@@ -24,6 +43,7 @@ export const addProduct = form => {
             dispatch({ type: productConstants.ADD_PRODUCT_REQUEST });
             await axios.post('/product/create', form)
                 .then(res => {
+                    message.success(res.data.message)
                     dispatch({ type: productConstants.ADD_PRODUCT_SUCCESS });
                     dispatch(getProducts());
                 }).catch(err => {
@@ -70,6 +90,7 @@ export const getProductsBySlug = (slug) => {
                 type: productConstants.GET_PRODUCTS_BY_SLUG,
                 payload: res.data
             });
+            // dispatch(getProducts());
         })
         
     }
@@ -112,7 +133,7 @@ export const getProductPage = (payload) => {
 export const getProductDetailsById = (payload) => {
     return async dispatch => {
         dispatch({ type: productConstants.GET_PRODUCT_DETAILS_BY_ID_REQUEST });
-        let res;
+        
         try {
             const { productId } = payload.params;
             await axios.get(`/product/${productId}`)

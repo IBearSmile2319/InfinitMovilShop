@@ -4,7 +4,7 @@ import AdminSection from "../../components/navbar/components/admin/AdminSection"
 import Cards from "../../components/Card"
 import Tittle from "../../components/Tittle"
 import { Card, Col, Empty, Image, Row, Steps, Tag } from "antd"
-import { useState } from "react"
+// import { useState } from "react"
 import { updateOrder } from "../../actions"
 import Meta from "antd/lib/card/Meta"
 import { generatePublicUrl } from "../../urlConfig"
@@ -21,9 +21,7 @@ const Orders = () => {
         };
         dispatch(updateOrder(payload));
     };
-    const onclick = (e) => {
-        console.log(e)
-    }
+    
     return (
         <div className="admin">
             <AdminNavbar />

@@ -34,7 +34,7 @@ const orderSchema=new Schema(
         ],
         paymentStatus: {
           type: String,
-          enum: ["pending", "completed", "cancelled", "refund"],
+          enum: ["pendiente", "completado", "cancelado", "reembolso"],
           required: true,
         },
         paymentType: {
@@ -46,8 +46,8 @@ const orderSchema=new Schema(
           {
             type: {
               type: String,
-              enum: ["ordered", "packed", "shipped", "delivered"],
-              default: "ordered",
+              enum: ["ordenado", "confirmado", "enviado", "entregado"],
+              default: "ordenado",
             },
             date: {
               type: Date,

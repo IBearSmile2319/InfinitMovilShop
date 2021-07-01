@@ -1,6 +1,7 @@
 import axios from "../helpers/axios"
 import { authConstants, cartConstants } from "./constants"
-import { toast } from 'react-toastify'
+// import { toast } from 'react-toastify'
+import { message } from "antd"
 export const login = (user) => {
     return async (dispatch) => {
         dispatch({ type: authConstants.LOGIN_REQUEST });
@@ -8,7 +9,7 @@ export const login = (user) => {
             axios.post('/signin', {
                 ...user
             }).then(res => {
-                toast.success(res.data.message)
+                message.success(res.data.message)
                 const { token, user } = res.data;
                 localStorage.setItem('token', token)
                 localStorage.setItem('user', JSON.stringify(user))
@@ -19,7 +20,8 @@ export const login = (user) => {
                     }
                 })
             }).catch(err => {
-                toast.error(err.response.data.errors)
+                message.error(err.response.data.errors)
+          
                 dispatch({
                     type: authConstants.LOGIN_FAILURE,
                     payload: { error: err.response.data.errors }

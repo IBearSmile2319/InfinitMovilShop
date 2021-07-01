@@ -14,13 +14,14 @@ import {
     useSelector } from "react-redux"
 import { generatePublicUrl } from "../urlConfig"
 import SplideCategoryProduct from "../components/Home/SplideCategoryProduct"
+// import { getAllProducts } from "../actions"
 // import { useEffect } from "react"
 const HomePage = () => {
     const banners = useSelector(state => state.banners)
     const product = useSelector(state => state.product)
     // const dispatch = useDispatch()
     // useEffect(()=>{
-    //     dispatch()
+    //     dispatch(getAllProducts())
     // },[])
 
     return (
@@ -44,12 +45,12 @@ const HomePage = () => {
                     <PopularElement />
                 </Card> */}
                 <Card>
-                    <Tittle tittle="Samsung" link="/accesorios" />
+                    <Tittle tittle="Samsung" link="/product/celular-samsung?cid=60dcd3bb3aad23001560fa75&type=store" />
 
                     <ProductsSplide>
                         {product.products.map((item, key) =>
                             <>
-                                {product.products[key].category[0].name === "Samsung" ?
+                                {product.products[key].category[0].name === "celular samsung" ?
                                     <SplideCategoryProduct
                                         data={item}
                                     /> : null
@@ -61,13 +62,13 @@ const HomePage = () => {
 
 
                 </Card>
-                <Card>
+                {/* <Card>
                     <Tittle tittle="celular" link="/celular" />
 
                     <ProductsSplide>
                         {product.products.map((item, key) =>
                             <>
-                                {product.products[key].category[0].name === "celular" ?
+                                {product.products[key].category[0].name === "celular samsung" ?
                                     <SplideCategoryProduct
                                         data={item}
                                     /> : null
@@ -78,7 +79,7 @@ const HomePage = () => {
                     </ProductsSplide>
 
 
-                </Card>
+                </Card> */}
             </MainContent>
             <Footer />
         </>

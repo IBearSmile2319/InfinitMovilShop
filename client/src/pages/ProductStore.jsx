@@ -16,6 +16,7 @@ const ProductStore = (props) => {
     useEffect(() => {
         const { match } = props
         dispatch(getProductsBySlug(match.params.slug))
+        
     }, [])
     return (
         <>

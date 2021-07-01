@@ -34,7 +34,7 @@ exports.addProductController = async (req, res, next) => {
     product.save((error, product) => {
         if (error) return res.status(400).json({ error })
         if (product) {
-            res.status(201).json({ product })
+            res.status(201).json({ product,message:"Producto agregado." })
         }
     })
 }
