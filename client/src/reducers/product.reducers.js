@@ -26,6 +26,7 @@ export default (state = initialState, action) => {
             state = {
                 ...state,
                 products: action.payload.products
+
             }
             break
         case productConstants.GET_PRODUCTS_BY_SLUG:
@@ -37,6 +38,7 @@ export default (state = initialState, action) => {
                     ...action.payload.productsByPrice,
                 },
             };
+            
             break;
         case productConstants.GET_PRODUCT_PAGE_REQUEST:
             state = {

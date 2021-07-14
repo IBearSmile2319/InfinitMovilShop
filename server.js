@@ -41,7 +41,6 @@ app.use('/api',orderRoutes)
 app.use('/api',addressRoutes)
 app.use('/api',bannersRoutes)
 
-
 // configuration for deploy
 if(process.env.NODE_ENV==="production"){
     app.use(express.static('client/build'))
